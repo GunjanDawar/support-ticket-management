@@ -1,0 +1,28 @@
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Java
+target/
+build/
+.gradle/
+
+# Node
+node_modules/
+.next/
+dist/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Generated
+coverage/
