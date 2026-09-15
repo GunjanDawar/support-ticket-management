@@ -95,9 +95,164 @@ Return a concise review with:
 _**Agent (gpt-5.6-sol)**_
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
-<summary>Tool use: **read_file_v2** • Read file: </summary>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/.cursor/rules/java-springboot.md</summary>
 
 </details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/.cursor/rules/testing.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/.cursor/rules/api-standards.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/.cursor/rules/documentation.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/.cursor/commands/review-code.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/.cursor/commands/review-spec.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/.cursor/commands/generate-tests.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+## Confirmed issues
+
+- Domain requirements are embedded in rules: `testing.md` hard-codes ticket transitions, while `review-spec.md` says not to invent requirements. Transitions should be defined in `/spec`; rules should require testing specified transitions.
+- `api-standards.md` similarly hard-codes endpoints, mixing project requirements with reusable engineering standards.
+- `PATCH /api/tickets/{id}` overlaps ambiguously with `PATCH /api/tickets/{id}/status`.
+- Treating every business-rule violation as `400 Bad Request` is too broad; the specification should define when `400`, `409`, or `422` applies.
+- The error format contains only a human-readable message, with no stable error code or field-level validation details.
+
+## Potential improvements
+
+- Define authentication, authorization, ownership rules, input limits, and protection against unintended DTO field binding.
+- Specify pagination, sorting, PATCH semantics, content types, identifier format, and concurrent-update handling.
+- Require `Location` on successful creation and define status codes per endpoint.
+- Add test guidance for framework choices, test isolation, database fidelity, transaction behavior, and avoiding brittle assertions.
+- Require traceability from requirements → acceptance criteria → tests.
+- Include non-functional requirements in specification review: security, performance, observability, accessibility, and data retention.
+
+## Questions/ambiguities
+
+- Is `/spec` or `spec/` the canonical specification path?
+- Are the listed state transitions already approved requirements?
+- Does generic ticket PATCH permit status changes?
+- Is UI flow mandatory even if this project is backend-only?
+- What qualifies as a “meaningful” rejected AI suggestion requiring documentation?
+
+## Overall readiness
+
+Partially ready. The files provide a solid baseline, but specification work should pause until domain requirements are separated from engineering rules and the API/status-transition ambiguities are resolved.
+
+---
+
+_**User**_
+
+We are correcting the Spec-Driven Development foundation based on the
+Milestone 1 review that was just completed.
+
+You may modify ONLY these files:
+
+.cursor/rules/testing.md
+.cursor/rules/api-standards.md
+docs/ai-review-findings.md
+
+Do NOT modify any other files.
+Do NOT create application source code.
+Do NOT create or modify project requirements.
+Do NOT add authentication, authorization, pagination, sorting,
+concurrency handling, or other features unless already required.
+Do NOT invent requirements.
+
+Context from the review:
+
+1. Project-specific ticket state transitions are currently embedded
+   in the reusable testing rules.
+2. Project-specific ticket endpoints are currently embedded in the
+   reusable API standards.
+3. PATCH /api/tickets/{id} and PATCH /api/tickets/{id}/status need
+   clearer separation.
+4. Error handling guidance should support structured errors and
+   distinguish validation/business/not-found cases without prematurely
+   deciding project-specific status codes.
+5. Testing guidance should emphasize traceability from requirements
+   to acceptance criteria to tests.
+
+Make the following corrections:
+
+A. testing.md
+- Remove hard-coded Support Ticket state transitions.
+- Replace them with a reusable rule stating that state-machine tests
+  must cover every valid and invalid transition defined by the
+  project's specification.
+- Retain generic guidance for positive, negative, boundary,
+  persistence, and state-transition testing.
+- Do not put Support Ticket-specific requirements into this file.
+
+B. api-standards.md
+- Remove hard-coded Support Ticket endpoint definitions.
+- Keep generic REST/API engineering standards.
+- State that project-specific endpoints belong in the API specification.
+- Clarify that when a resource has a dedicated status-transition
+  operation, ordinary resource updates should not implicitly bypass
+  the defined state-transition rules.
+- Keep guidance for HTTP methods, validation, status codes, DTOs,
+  and consistent structured errors.
+- Do not prescribe project-specific status codes where the specification
+  has not yet decided them.
+- Include guidance for stable error codes and field-level validation
+  details where applicable.
+
+C. docs/ai-review-findings.md
+Create this file and document the actual findings from the AI review.
+Clearly distinguish:
+- confirmed findings
+- optional recommendations that were not adopted
+- decisions that are deferred to the specification phase
+
+Include that the AI identified the mixing of domain requirements with
+reusable engineering rules as a problem.
+
+IMPORTANT:
+Before editing, inspect the three target files.
+After editing, review your changes against the instructions above.
+Do not modify anything outside the three permitted files.
+
+Finally, report:
+1. Files changed
+2. What was changed in each file
+3. Any recommendations you intentionally did NOT apply and why
+4. Any remaining ambiguity that must be resolved during specification
+
+---
 
 _**Agent (gpt-5.6-sol)**_
 
@@ -122,21 +277,16 @@ _**Agent (gpt-5.6-sol)**_
 
 _**Agent (gpt-5.6-sol)**_
 
-<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
-<summary>Tool use: **read_file_v2** • Read file: </summary>
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
 
-</details></tool-use>
+Parameters:
 
-_**Agent (gpt-5.6-sol)**_
-
-<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
-<summary>Tool use: **read_file_v2** • Read file: </summary>
-
-</details></tool-use>
-
-_**Agent (gpt-5.6-sol)**_
-
-<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
-<summary>Tool use: **read_file_v2** • Read file: </summary>
+```json
+{
+  "merge": true
+}
+```
+Status: **loading**
 
 </details></tool-use>

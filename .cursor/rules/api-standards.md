@@ -4,64 +4,45 @@
 
 APIs should follow REST principles and use resource-oriented URLs.
 
-## Ticket APIs
+Project-specific endpoints, request and response contracts, and status-code
+decisions belong in the project's API specification.
 
-POST   /api/tickets
-GET    /api/tickets
-GET    /api/tickets/{id}
-PATCH  /api/tickets/{id}
+## HTTP Methods
 
-## Comment APIs
+- Use HTTP methods according to their standard semantics.
+- Use POST to create resources or invoke non-idempotent operations.
+- Use GET to retrieve resources without changing server state.
+- Use PUT for complete replacement where that behavior is specified.
+- Use PATCH for explicitly defined partial updates.
+- Use DELETE to remove resources where deletion is specified.
 
-POST   /api/tickets/{id}/comments
+## Resource Updates and State Transitions
 
-## Status
-
-PATCH  /api/tickets/{id}/status
-
-## Search and Filtering
-
-GET /api/tickets?keyword={keyword}
-GET /api/tickets?status={status}
-
-Search and filtering may be combined.
-
-Example:
-
-GET /api/tickets?keyword=payment&status=OPEN
+When the API specification defines a dedicated status-transition operation,
+ordinary resource updates must not implicitly bypass the specified
+state-transition rules. The API specification must define which fields each
+update operation accepts and the behavior of each transition operation.
 
 ## HTTP Status Codes
 
-Use appropriate HTTP status codes.
+Use HTTP status codes consistently with their standard semantics and the
+project's API specification.
 
-201 Created
-- Successful ticket creation.
-
-200 OK
-- Successful retrieval/update.
-
-400 Bad Request
-- Invalid request or business-rule violation.
-
-404 Not Found
-- Requested resource does not exist.
-
-500 Internal Server Error
-- Unexpected server-side failure.
+The API specification must define status codes for successful operations,
+request-validation failures, business-rule violations, missing resources,
+and unexpected server failures. Do not assume that validation failures and
+business-rule violations necessarily use the same status code.
 
 ## Error Response
 
-Errors should use a consistent structure.
+Errors must use a consistent structured response defined by the API
+specification. The structure should include:
 
-Example:
-
-{
-  "timestamp": "...",
-  "status": 400,
-  "error": "Bad Request",
-  "message": "Ticket cannot transition from CLOSED to OPEN",
-  "path": "/api/tickets/1/status"
-}
+- A stable, machine-readable error code.
+- A human-readable message.
+- The HTTP status.
+- Request context such as the request path where useful.
+- Field-level validation details when applicable.
 
 Do not expose stack traces or internal implementation details.
 
@@ -70,4 +51,5 @@ Do not expose stack traces or internal implementation details.
 - Do not expose database entities directly.
 - Use DTOs.
 - Validate request payloads.
-- Keep API contracts documented in spec/api-contract.md.
+- Keep project-specific API contracts documented in the project's API
+  specification.

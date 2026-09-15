@@ -24,28 +24,16 @@ Every important business rule must have:
 - Negative tests
 - Boundary/validation tests where applicable
 
-## Ticket State Machine
+Tests must be traceable to the requirements and acceptance criteria they verify.
 
-The ticket state machine is a critical business rule.
+## State Machines
 
-Tests must cover all explicitly valid transitions:
+For each state machine defined by the project specification, tests must cover:
 
-OPEN → IN_PROGRESS
-IN_PROGRESS → RESOLVED
-RESOLVED → CLOSED
-OPEN → CANCELLED
-IN_PROGRESS → CANCELLED
-
-Tests must also verify invalid transitions.
-
-Examples include:
-
-CLOSED → OPEN
-RESOLVED → OPEN
-CANCELLED → OPEN
-OPEN → RESOLVED
-OPEN → CLOSED
-IN_PROGRESS → CLOSED
+- Every valid transition defined by the specification.
+- Every invalid transition defined by the specification.
+- Relevant positive, negative, and boundary conditions.
+- Persistence of state after accepted and rejected transitions.
 
 ## Integration Testing
 
