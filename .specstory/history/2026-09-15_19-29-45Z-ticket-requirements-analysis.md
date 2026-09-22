@@ -39172,6 +39172,2971 @@ None.
 _**Agent (gpt-5.6-sol)**_
 
 <tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/backend/src/test/java/com/supportticketmanagement/service/TicketStatusTransitionServiceTests.java</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/backend/src/test/java/com/supportticketmanagement/service/TicketStatusTransitionPersistenceTests.java</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/backend/src/test/java/com/supportticketmanagement/BackendIntegrationTests.java</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/backend/src/main/java/com/supportticketmanagement/persistence/Ticket.java</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/backend/src/main/java/com/supportticketmanagement/persistence/TicketStatus.java</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/backend/src/main/java/com/supportticketmanagement/repository/TicketRepository.java</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Audit existing state-machine test coverage",
+      "id": "audit-imp019",
+      "status": "completed"
+    },
+    {
+      "content": "Add 25-case REST-to-H2 matrix tests",
+      "id": "implement-imp019",
+      "status": "in_progress"
+    },
+    {
+      "content": "Run focused matrix and complete backend build",
+      "id": "verify-imp019",
+      "status": "pending"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Audit existing tests for full-stack coverage gaps",
+      "id": "audit-integration-coverage",
+      "status": "completed"
+    },
+    {
+      "content": "Add real REST-to-H2 integration flows",
+      "id": "add-backend-integration-tests",
+      "status": "completed"
+    },
+    {
+      "content": "Run full backend build and audit test-only scope",
+      "id": "verify-imp018",
+      "status": "completed"
+    }
+  ],
+  "success": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/backend/src/test/java/com/supportticketmanagement/TicketStatusTransitionIntegrationMatrixTests.java</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Audit existing state-machine test coverage",
+      "id": "audit-imp019",
+      "status": "completed"
+    },
+    {
+      "content": "Add 25-case REST-to-H2 matrix tests",
+      "id": "implement-imp019",
+      "status": "completed"
+    },
+    {
+      "content": "Run focused matrix and complete backend build",
+      "id": "verify-imp019",
+      "status": "in_progress"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Audit existing state-machine test coverage",
+      "id": "audit-imp019",
+      "status": "completed"
+    },
+    {
+      "content": "Add 25-case REST-to-H2 matrix tests",
+      "id": "implement-imp019",
+      "status": "in_progress"
+    },
+    {
+      "content": "Run focused matrix and complete backend build",
+      "id": "verify-imp019",
+      "status": "pending"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+Cancelled
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2** • Run command: ./gradlew test --tests com.supportticketmanagement.TicketStatusTransitionIntegrationMatrixTests</summary>
+```bash
+./gradlew test --tests com.supportticketmanagement.TicketStatusTransitionIntegrationMatrixTests
+```
+
+```
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava
+> Task :processTestResources UP-TO-DATE
+> Task :testClasses
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-09-23T01:31:03.641+05:30  INFO 107947 --- [support-ticket-management-backend] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-23T01:31:03.646+05:30  INFO 107947 --- [support-ticket-management-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-09-23T01:31:03.649+05:30  INFO 107947 --- [support-ticket-management-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+> Task :test
+
+BUILD SUCCESSFUL in 7s
+5 actionable tasks: 2 executed, 3 up-to-date
+
+```
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+Cancelled
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2** • Run command: ./gradlew build</summary>
+```bash
+./gradlew build
+```
+
+```
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :resolveMainClassName UP-TO-DATE
+> Task :bootJar UP-TO-DATE
+> Task :jar UP-TO-DATE
+> Task :assemble UP-TO-DATE
+> Task :compileTestJava UP-TO-DATE
+> Task :processTestResources UP-TO-DATE
+> Task :testClasses UP-TO-DATE
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-09-23T01:31:33.300+05:30  INFO 108429 --- [support-ticket-management-backend] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-23T01:31:33.303+05:30  INFO 108429 --- [support-ticket-management-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-09-23T01:31:33.304+05:30  INFO 108429 --- [support-ticket-management-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-09-23T01:31:33.307+05:30  INFO 108429 --- [support-ticket-management-backend] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-23T01:31:33.307+05:30  INFO 108429 --- [support-ticket-management-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-09-23T01:31:33.308+05:30  INFO 108429 --- [support-ticket-management-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-09-23T01:31:33.309+05:30  INFO 108429 --- [support-ticket-management-backend] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-09-23T01:31:33.310+05:30  INFO 108429 --- [support-ticket-management-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-09-23T01:31:33.311+05:
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Inspecting XML counts**
+
+I need to check the XML file to confirm a count of 25 and maybe a total count. I’m wondering if I can use Gradle or shell scripts for this, perhaps through specialized glob patterns and reading the file. It seems like I might be able to derive a total report too. It looks like the baseline count plus 25 could add up to 220, but I still need to ensure lints and status are clear.
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/backend/build/test-results/test/TEST-com.supportticketmanagement.TicketStatusTransitionIntegrationMatrixTests.xml</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="read_lints"><details>
+<summary>Tool use: **read_lints**</summary>
+
+Parameters:
+
+```json
+{
+  "paths": [
+    "/home/gunjan/Documents/support-ticket-management/backend/src/test/java/com/supportticketmanagement/TicketStatusTransitionIntegrationMatrixTests.java"
+  ]
+}
+```
+Result:
+
+```json
+{
+  "linterErrorsByFile": [
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/backend/src/test/java/com/supportticketmanagement/TicketStatusTransitionIntegrationMatrixTests.java"
+    }
+  ]
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "glob": "TEST-*.xml",
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/backend/build/test-results/test",
+  "pattern": "tests=\""
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/backend/build/test-results/test",
+  "pattern": "tests=\"",
+  "topFiles": [
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.service.TicketServicePersistenceTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.dto.RequestDtoValidationTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.service.TicketServiceTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.SupportTicketManagementApplicationTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.repository.TicketSearchRepositoryTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.PostgreSqlConfigurationTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.repository.RepositoryDataAccessCoverageTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.service.TicketStatusTransitionServiceTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.TicketStatusTransitionIntegrationMatrixTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.dto.ResponseDtoSerializationTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.repository.RepositoryTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.persistence.PersistenceModelTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.controller.TicketControllerContractCoverageTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.error.GlobalExceptionHandlerTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.service.TicketServiceCoverageTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.service.TicketStatusTransitionPersistenceTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.BackendIntegrationTests.xml"
+    },
+    {
+      "matchCount": 1,
+      "uri": "backend/build/test-results/test/TEST-com.supportticketmanagement.controller.TicketControllerTests.xml"
+    }
+  ],
+  "totalFiles": 18,
+  "totalMatches": 18
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2** • Run command: git status --short -- spec frontend backend/src/main backend/src/test/java/com/supportticketmanagement/TicketStatusTransitionIntegrationMatrixTests.java</summary>
+```bash
+git status --short -- spec frontend backend/src/main backend/src/test/java/com/supportticketmanagement/TicketStatusTransitionIntegrationMatrixTests.java
+```
+
+```
+?? backend/src/main/
+?? backend/src/test/java/com/supportticketmanagement/TicketStatusTransitionIntegrationMatrixTests.java
+?? frontend/
+
+```
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Summarizing visibility and implementation**
+
+I’m calculating the sum of these numbers: 2+12+27+1+7+1+16+27+25+12+2+4+26+7+8+2+14+27, which amounts to 220. However, there's a concern from the user about not having a second state-machine implementation. The matrix should be data-ready, while the production status is currently untracked. I need to ensure that the final report is organized by sections and mention the source directly from the repository. I’ll separate GET requests and address todos in my tasks.
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Audit existing state-machine test coverage",
+      "id": "audit-imp019",
+      "status": "completed"
+    },
+    {
+      "content": "Add 25-case REST-to-H2 matrix tests",
+      "id": "implement-imp019",
+      "status": "completed"
+    },
+    {
+      "content": "Run focused matrix and complete backend build",
+      "id": "verify-imp019",
+      "status": "completed"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Audit existing state-machine test coverage",
+      "id": "audit-imp019",
+      "status": "completed"
+    },
+    {
+      "content": "Add 25-case REST-to-H2 matrix tests",
+      "id": "implement-imp019",
+      "status": "completed"
+    },
+    {
+      "content": "Run focused matrix and complete backend build",
+      "id": "verify-imp019",
+      "status": "in_progress"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+## 1. Coverage audit
+### Already covered before IMP-019
+- IMP-012 tested all 25 transitions at service level with mocked repositories.
+- Persistence tests covered one valid and one invalid transition.
+- IMP-018 covered representative lifecycle, terminal-state, and persistence flows.
+
+### New IMP-019 coverage
+All 25 combinations now execute through real REST, controller, service, repository, and H2 layers. This verifies HTTP behavior and persisted state, which IMP-012 did not cover.
+
+## 2. Changed files
+Created:
+- `backend/src/test/java/com/supportticketmanagement/TicketStatusTransitionIntegrationMatrixTests.java`
+
+## 3. Matrix result
+- 5 valid transitions tested
+- 20 invalid transitions tested
+- 25 total source/target combinations tested
+
+Valid transitions:
+- `OPEN → IN_PROGRESS`
+- `OPEN → CANCELLED`
+- `IN_PROGRESS → RESOLVED`
+- `IN_PROGRESS → CANCELLED`
+- `RESOLVED → CLOSED`
+
+All 20 remaining combinations returned `409 INVALID_STATUS_TRANSITION`.
+
+## 4. Persistence verification
+Every matrix case performs a separate database-backed GET after PATCH.
+
+- Valid transitions: GET confirmed the target status persisted.
+- Invalid transitions: GET confirmed the original source status remained.
+- ID, title, description, priority, and assignee were verified unchanged in every case.
+- Invalid responses were verified to contain exactly `code`, `message`, `status`, and `path`.
+
+## 5. Test setup strategy
+Repository setup establishes each source state directly and deterministically in H2. This avoids setup transitions obscuring the transition under test.
+
+Every tested transition itself uses:
+
+`MockMvc → Controller → Service → Repository → H2`
+
+Each parameterized invocation receives a fresh Ticket and isolated database state.
+
+## 6. Production changes
+No production code changed.
+
+## 7. Tests
+- Baseline: 195 tests
+- New meaningful IMP-019 tests: 25 parameterized invocations
+- Final total: 220 tests
+- Focused matrix: 25 passed, 0 failed
+- Complete backend suite: passed
+- Build: successful
+
+## 8. Scope compliance
+Confirmed:
+- No specification changes
+- No API changes
+- No frontend changes
+- No new product behavior
+- No second production state-machine implementation
+- Real REST → Controller → Service → Repository → H2 path
+- Complete 25-case matrix
+- No PostgreSQL claims
+
+## 9. PostgreSQL limitation
+IMP-019 validates the state machine through the integrated H2-backed application.  
+PostgreSQL-specific behavior and restart durability remain for IMP-025.
+
+## 10. Ambiguities
+None.
+
+## 11. Scope deviations
+None.
+
+---
+
+_**User**_
+
+Implement **IMP-020 — Frontend API Boundary + Ticket List** for the Support Ticket Management System.
+
+This is the first frontend implementation task after completing the backend.
+
+The backend is already implemented and tested through IMP-019.
+
+Do NOT modify the backend unless a genuine frontend integration blocker exposes an existing backend defect.
+
+Do NOT modify the frozen specifications.
+
+Do NOT add product behavior.
+
+Do NOT begin IMP-021.
+
+---
+
+# 1. Primary Objective
+
+Build the frontend API boundary and the **Ticket List view**.
+
+The frontend must communicate with the backend exclusively through a small, centralized API client/boundary.
+
+The intended architecture is:
+
+```text
+React components
+      ↓
+Frontend API client
+      ↓
+HTTP REST API
+      ↓
+Backend
+```
+
+Do NOT place raw `fetch()` calls throughout components.
+
+Do NOT duplicate backend business rules in React.
+
+---
+
+# 2. First Step — Inspect Existing Frontend
+
+Before changing anything, inspect the existing frontend created in IMP-002.
+
+Identify:
+
+* React version
+* Vite configuration
+* React Router setup
+* existing routes
+* existing components
+* existing styling approach
+* existing test setup, if any
+* existing placeholder pages
+
+Do not replace the existing frontend foundation unnecessarily.
+
+Reuse the existing structure where reasonable.
+
+---
+
+# 3. Frozen Frontend Scope
+
+The frontend must support the existing backend API.
+
+For IMP-020, implement only:
+
+```text
+Ticket List
+Frontend API boundary
+Search
+Status filter
+Loading state
+Empty state
+API error state
+Navigation to ticket detail/create routes where appropriate
+```
+
+Do NOT implement:
+
+* ticket creation form
+* ticket editing
+* status actions
+* comments
+* terminal-state behavior
+* detail page functionality
+* authentication
+* authorization
+* pagination
+* sorting
+* advanced search
+* frontend state-machine implementation
+
+Those belong to later tasks.
+
+---
+
+# 4. API Boundary
+
+Create a centralized API module.
+
+Use a clear structure such as:
+
+```text
+frontend/src/api/
+```
+
+The exact file naming is an implementation choice.
+
+The API boundary should own:
+
+* base API URL
+* HTTP requests
+* JSON serialization/deserialization
+* HTTP error conversion
+* API response typing
+* query parameter construction
+
+Components should not construct raw REST URLs themselves.
+
+---
+
+# 5. API Base URL
+
+Do not hard-code a production hostname.
+
+Use a frontend configuration/environment mechanism appropriate for Vite.
+
+For example, an environment variable may be used for the backend base URL.
+
+A local-development default may point to the backend's `/api` endpoint if that is already consistent with the project setup.
+
+Do not commit secrets.
+
+Do not introduce credentials into frontend configuration.
+
+If the project currently relies on Vite's development proxy, inspect that setup before deciding whether a full API URL is necessary.
+
+Do not invent unnecessary deployment infrastructure.
+
+---
+
+# 6. Required API Client Operations for IMP-020
+
+Implement only the API operations needed by the Ticket List.
+
+At minimum:
+
+```text id="7q4c9m"
+listTickets()
+```
+
+with optional:
+
+```text id="z1p8sa"
+keyword
+status
+```
+
+The API client should call:
+
+```text id="7b4v3x"
+GET /api/tickets
+```
+
+using:
+
+```text id="2l5j8c"
+?keyword=...
+?status=...
+```
+
+when applicable.
+
+If both are supplied:
+
+```text id="8n4q2m"
+?keyword=...&status=...
+```
+
+The backend owns the actual filtering semantics.
+
+Do not implement search/filtering locally against already-fetched tickets.
+
+---
+
+# 7. Query Parameter Rules
+
+Follow the frozen API contract.
+
+### Keyword
+
+Optional.
+
+If empty, do not unnecessarily send an empty keyword parameter unless the API client design consistently supports it.
+
+The backend treats empty keyword as no keyword restriction.
+
+### Status
+
+Optional.
+
+Approved values only:
+
+```text id="1x7r3k"
+OPEN
+IN_PROGRESS
+RESOLVED
+CLOSED
+CANCELLED
+```
+
+Do not create additional statuses.
+
+### Combined
+
+When both are active, send both parameters.
+
+Do not implement the AND logic in React.
+
+The backend already owns:
+
+```text id="5f2v8a"
+(keyword match) AND (status match)
+```
+
+---
+
+# 8. Type Definitions
+
+Create frontend types corresponding to the API contract.
+
+For the list endpoint, the primary response is:
+
+```text id="8y1p4d"
+TicketSummaryResponse
+```
+
+with exactly:
+
+```text id="9c3w7x"
+id: string
+title: string
+priority: Priority
+assignee: string | null
+status: TicketStatus
+```
+
+Do NOT use numeric IDs in frontend models.
+
+The API deliberately represents IDs as decimal strings.
+
+Define:
+
+```text id="3p7h5k"
+Priority =
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+
+TicketStatus =
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+  CANCELLED
+```
+
+Do not create a second set of business-state definitions with transition rules.
+
+Enums/types are acceptable for display/type safety.
+
+---
+
+# 9. API Error Handling
+
+Create a small typed representation for the backend error contract:
+
+```text id="6j4m2p"
+code
+message
+status
+path
+```
+
+The API client should convert non-2xx responses into a predictable frontend error representation.
+
+Do not expose raw:
+
+* HTTP response objects
+* implementation details
+* stack traces
+* backend internals
+
+to UI components.
+
+The UI should be able to display a meaningful error message.
+
+Do not invent new backend error codes.
+
+---
+
+# 10. Unexpected Server Errors
+
+The frozen API contract defines:
+
+```text id="0k3s6w"
+400 VALIDATION_ERROR
+404 TICKET_NOT_FOUND
+409 INVALID_STATUS_TRANSITION
+409 TERMINAL_TICKET_CONFLICT
+```
+
+It does not define a fifth public error-code contract for unexpected server failures.
+
+Therefore the frontend API boundary must still gracefully handle a non-contractual/unexpected HTTP failure without inventing a new backend error code.
+
+For example:
+
+```text id="h7p4w2"
+status 500
+network failure
+invalid/unexpected response body
+```
+
+may become a generic frontend error such as:
+
+```text
+"Something went wrong. Please try again."
+```
+
+Do not create a fake backend `SERVER_ERROR` contract.
+
+---
+
+# 11. HTTP Response Validation
+
+Do not assume every successful response is valid JSON without handling failures gracefully.
+
+At minimum, the API boundary should distinguish:
+
+```text id="3t8v6r"
+successful response
+API-defined error response
+unexpected HTTP failure
+network/request failure
+```
+
+Keep this implementation lightweight.
+
+Do not introduce a large HTTP abstraction library unless the existing project already uses one.
+
+Native `fetch` is sufficient unless there is a compelling existing reason to use another client.
+
+---
+
+# 12. Ticket List View
+
+Build the Ticket List page at the existing `/` route.
+
+The page should display:
+
+```text id="8q5s2n"
+Ticket ID
+Title
+Priority
+Assignee
+Status
+```
+
+Use the exact summary fields.
+
+Do NOT display:
+
+* description
+* comments
+* timestamps
+* ticket history
+* author
+* category
+* tags
+* unsupported fields
+
+Those are not part of the list contract.
+
+---
+
+# 13. List Loading
+
+When the page loads:
+
+```text id="3m8k6a"
+GET /api/tickets
+```
+
+and display a clear loading state while waiting.
+
+Do not allow the UI to appear broken or blank without explanation.
+
+A simple:
+
+```text
+Loading tickets...
+```
+
+is sufficient.
+
+Do not introduce a global state-management library for this.
+
+---
+
+# 14. Empty State
+
+If the API returns:
+
+```json id="7g4w2n"
+[]
+```
+
+display a meaningful empty state.
+
+For example:
+
+```text
+No tickets found.
+```
+
+If filters are active, the message may appropriately indicate that no matching tickets were found.
+
+Do not invent backend data.
+
+---
+
+# 15. Error State
+
+If loading tickets fails, display a meaningful UI error.
+
+For example:
+
+```text
+Unable to load tickets. Please try again.
+```
+
+If the API provides a safe meaningful error message, it may be displayed.
+
+Do not expose:
+
+* stack traces
+* Java exception names
+* SQL
+* backend internals
+* raw response dumps
+
+---
+
+# 16. Search UI
+
+Provide a keyword search input.
+
+The input represents:
+
+```text
+keyword
+```
+
+from the backend API.
+
+When search is performed, request:
+
+```text
+GET /api/tickets?keyword=<value>
+```
+
+Do not filter the existing array locally.
+
+The server is authoritative.
+
+Choose a simple interaction model consistent with the existing UI foundation, such as:
+
+* search button
+* Enter key
+* controlled input with explicit search
+
+Avoid firing a request on every keystroke unless there is a strong reason.
+
+Do not add debounce complexity unnecessarily.
+
+---
+
+# 17. Status Filter UI
+
+Provide a status filter using exactly:
+
+```text
+All
+OPEN
+IN_PROGRESS
+RESOLVED
+CLOSED
+CANCELLED
+```
+
+"All" is a UI concept only and should mean no `status` query parameter.
+
+Do not send:
+
+```text
+status=ALL
+```
+
+because `ALL` is not a backend status.
+
+When a status is selected, request:
+
+```text
+GET /api/tickets?status=<STATUS>
+```
+
+---
+
+# 18. Search + Status
+
+The UI must support both simultaneously.
+
+Example:
+
+```text
+keyword = login
+status = IN_PROGRESS
+```
+
+should result in:
+
+```text
+GET /api/tickets?keyword=login&status=IN_PROGRESS
+```
+
+Do not perform:
+
+```text
+tickets.filter(...)
+```
+
+to implement the combined semantics.
+
+The backend owns the actual filtering.
+
+---
+
+# 19. Refresh Behavior
+
+When search/filter criteria change and a new request is made:
+
+* show an appropriate loading state
+* replace the displayed list with the latest server result
+* handle success/error consistently
+
+Avoid displaying stale results as if they were the latest response.
+
+If implementing asynchronous requests where responses could arrive out of order, prevent stale responses from overwriting newer results using a simple appropriate mechanism.
+
+Do not introduce unnecessary complexity.
+
+---
+
+# 20. Duplicate Requests
+
+Prevent obvious duplicate submissions for the same user action where practical.
+
+Do not create elaborate request-management infrastructure.
+
+For example, while an explicit search/filter request is loading, the relevant action can be disabled.
+
+---
+
+# 21. Navigation
+
+The Ticket List should make it possible to navigate to:
+
+```text
+/tickets/:ticketId
+```
+
+for a selected Ticket.
+
+Use the existing React Router setup.
+
+Do not implement the detail page yet.
+
+A simple clickable title/row/link is sufficient.
+
+Also preserve the existing route:
+
+```text
+/tickets/new
+```
+
+as navigation from the UI where the existing foundation already supports it.
+
+Do not implement ticket creation in IMP-020.
+
+---
+
+# 22. ID Handling
+
+Ticket IDs are strings.
+
+Use:
+
+```text
+ticket.id
+```
+
+directly for:
+
+```text
+/tickets/${ticket.id}
+```
+
+Do NOT convert the ID using:
+
+```text
+Number(ticket.id)
+parseInt(ticket.id)
+```
+
+This would undermine the API contract's purpose of avoiding JavaScript precision issues.
+
+---
+
+# 23. Status and Priority Display
+
+Use the backend enum values as the source of truth.
+
+You may format them for readability in the UI.
+
+For example:
+
+```text
+IN_PROGRESS → In Progress
+CRITICAL → Critical
+```
+
+This is presentation only.
+
+Do not create alternative status semantics.
+
+Do not allow arbitrary status values.
+
+---
+
+# 24. Assignee Display
+
+Assignee may be null.
+
+Display a clear neutral representation such as:
+
+```text
+Unassigned
+```
+
+Do not treat null as an error.
+
+Do not invent an assignee.
+
+---
+
+# 25. No Frontend State Machine
+
+Do NOT implement:
+
+```text
+OPEN → IN_PROGRESS
+...
+```
+
+inside the Ticket List.
+
+Do not calculate which transitions are valid.
+
+Do not hide/show lifecycle actions in IMP-020.
+
+The backend owns lifecycle rules.
+
+Later tasks may consume the backend status information for UI presentation, but the frontend must not become the source of truth.
+
+---
+
+# 26. Accessibility Baseline
+
+Use basic semantic HTML and accessible controls.
+
+At minimum:
+
+* labels for search/filter controls
+* button/link semantics
+* meaningful table/list headings
+* visible focus behavior using the existing styling approach
+* accessible loading/error text where practical
+
+Do not introduce a UI framework solely for accessibility.
+
+---
+
+# 27. Styling
+
+Use the existing frontend styling approach.
+
+Keep the UI clean and functional.
+
+Do not spend the task on visual polish.
+
+Do not introduce a large component library unless one already exists.
+
+The priority is correct API integration and behavior.
+
+---
+
+# 28. Tests
+
+Inspect the existing frontend test setup.
+
+If frontend tests are already configured, add focused tests for IMP-020.
+
+If no frontend testing framework exists yet, do NOT spend the task introducing a large testing infrastructure unless it is necessary and lightweight.
+
+At minimum, where practical, test:
+
+### API boundary
+
+* no-filter request
+* keyword request
+* status request
+* combined request
+* non-2xx error conversion
+
+### Ticket List
+
+* renders ticket summary
+* loading state
+* empty state
+* error state
+* search interaction
+* status filter interaction
+* combined search/filter request
+* navigation using String ID
+
+Do not test backend business logic from frontend tests.
+
+Do not test the 25-case state machine here.
+
+---
+
+# 29. Testability
+
+Keep API calls and UI logic sufficiently separated so components can be tested without real network access.
+
+Mock the API boundary in frontend tests.
+
+Do not mock backend internals.
+
+---
+
+# 30. No Backend Changes
+
+Do not modify backend files unless a genuine existing defect prevents the frontend from consuming the frozen API contract.
+
+If a backend issue is discovered:
+
+1. Stop.
+2. Identify the exact frozen contract being violated.
+3. Report it.
+4. Do not silently change backend behavior.
+
+---
+
+# 31. No Specification Changes
+
+Do not modify:
+
+```text id="p4j6t2"
+spec/requirements.md
+spec/architecture.md
+spec/data-model.md
+spec/api-contract.md
+spec/state-machine.md
+spec/ui-flow.md
+spec/test-strategy.md
+```
+
+If the frontend reveals an ambiguity in the frozen UI/API contract:
+
+1. Stop.
+2. Report the ambiguity.
+3. Do not invent product behavior.
+
+---
+
+# 32. Existing Baseline
+
+Backend baseline:
+
+```text id="6r9s1w"
+220 passing tests
+```
+
+Do not regress the backend.
+
+Run the backend suite if frontend changes require any backend verification.
+
+Also run the frontend build.
+
+---
+
+# 33. Required Final Report
+
+After implementation, STOP and report:
+
+## 1. Coverage audit
+
+Clearly distinguish:
+
+### Already present before IMP-020
+
+Existing frontend foundation/routes/tests.
+
+### New IMP-020 implementation
+
+API boundary + Ticket List behavior.
+
+---
+
+## 2. Changed files
+
+List every created/modified frontend file.
+
+If any backend file changed, explicitly identify it and explain why.
+
+---
+
+## 3. API boundary
+
+Report:
+
+* API client location
+* how base URL is configured
+* supported API operation(s)
+* query parameter handling
+* error conversion
+* unexpected-error handling
+
+---
+
+## 4. Ticket List
+
+Report:
+
+* fields displayed
+* loading behavior
+* empty behavior
+* error behavior
+* search behavior
+* status filter behavior
+* combined search/filter behavior
+* navigation behavior
+
+---
+
+## 5. Backend business logic boundary
+
+Explicitly confirm that:
+
+* search semantics remain backend-owned
+* status filtering remains backend-owned
+* state-machine rules remain backend-owned
+* no frontend state machine was introduced
+* IDs remain strings
+
+---
+
+## 6. Tests
+
+Report:
+
+* frontend tests added
+* frontend test result
+* frontend build result
+* backend regression result
+
+If no frontend test framework existed and no tests were added, explain why.
+
+---
+
+## 7. Production changes
+
+State explicitly:
+
+```text id="p6c0sn"
+No backend production code changed.
+```
+
+if applicable.
+
+---
+
+## 8. Scope compliance
+
+Confirm:
+
+* no API changes
+* no backend behavior changes
+* no specification changes
+* no new product capabilities
+* no frontend state-machine duplication
+* no pagination
+* no sorting
+* no authentication/authorization
+* no secrets
+
+---
+
+## 9. Ambiguities
+
+List any.
+
+If none:
+
+```text id="m3g8u1"
+None.
+```
+
+---
+
+## 10. Scope deviations
+
+List any.
+
+If none:
+
+```text id="r2n7kc"
+None.
+```
+
+**Stop after IMP-020. Do not begin IMP-021 automatically.**
+
+
+---
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Inspecting files**
+
+I need to take a closer look at the files! It’s important to ensure everything is in order and that I’m not overlooking anything. I’ll gather all relevant documents and consider what specific details I should focus on. Maybe I should prioritize certain files based on their content or importance. My goal is to carefully analyze and extract any needed information without missing anything crucial. Let's dive in and get this sorted!
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/package.json</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/vite.config.js</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/src/App.jsx</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/src/main.jsx</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/src/layout/AppLayout.jsx</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/src/views/TicketListView.jsx</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/src/views/CreateTicketView.jsx</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/src/views/TicketDetailView.jsx</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/src/styles.css</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/README.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Considering API configuration**
+
+I need to focus on using JavaScript instead of TypeScript. The user mentioned types and possibly JSDoc typedef in `api/types.js`. The central API is in `tickets.js`. If there's no Vite proxy, I'll use `VITE_API_BASE_URL` and default to an empty string with the endpoint set to `/api/tickets`. This indicates same-origin, and if they're in development without a proxy, it may not connect, especially if there's a separate backend. Adding a proxy to port 8080 seems necessary for local development.
+**Evaluating API structure**
+
+I’m diving into the initial effects of using StrictMode, where it seems I need to manage abort signals for API calls like `listTickets({keyword, status, signal})`. There should be an error class like `ApiError` to handle and parse errors safely. I want to ensure API responses have validated structures and handle generic errors like `AbortError` appropriately. I'll also consider UI safety around displaying error messages, possibly extending `UnexpectedApiError` for generic issues. CSS is needed, and I might modify the README for environmental proxies, but I’m hesitant to change it each time.
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Audit existing frontend foundation and test setup",
+      "id": "audit-frontend",
+      "status": "completed"
+    },
+    {
+      "content": "Implement centralized typed ticket API boundary",
+      "id": "api-boundary",
+      "status": "in_progress"
+    },
+    {
+      "content": "Implement Ticket List states, filters, and navigation",
+      "id": "ticket-list",
+      "status": "pending"
+    },
+    {
+      "content": "Build frontend and audit IMP-020 scope",
+      "id": "verify-frontend",
+      "status": "pending"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Audit existing state-machine test coverage",
+      "id": "audit-imp019",
+      "status": "completed"
+    },
+    {
+      "content": "Add 25-case REST-to-H2 matrix tests",
+      "id": "implement-imp019",
+      "status": "completed"
+    },
+    {
+      "content": "Run focused matrix and complete backend build",
+      "id": "verify-imp019",
+      "status": "completed"
+    }
+  ],
+  "success": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/frontend/src/api/types.js</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/frontend/src/api/tickets.js</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/frontend/src/views/TicketListView.jsx</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/frontend/src/styles.css</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/frontend/vite.config.js</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Assessing backend setup**
+
+I'm considering the user's suggestion about the local development environment. The base URL is set to `/api`, and it makes me wonder if I should provide an example of the environment—without including any secrets, of course. The existing backend has some environment setup. Updating the README might not be necessary right now. I need to check what's available in Node first, then move on to the shell npm build, starting with linting using the no lint config.
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Audit existing frontend foundation and test setup",
+      "id": "audit-frontend",
+      "status": "completed"
+    },
+    {
+      "content": "Implement centralized typed ticket API boundary",
+      "id": "api-boundary",
+      "status": "completed"
+    },
+    {
+      "content": "Implement Ticket List states, filters, and navigation",
+      "id": "ticket-list",
+      "status": "completed"
+    },
+    {
+      "content": "Build frontend and audit IMP-020 scope",
+      "id": "verify-frontend",
+      "status": "in_progress"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Audit existing frontend foundation and test setup",
+      "id": "audit-frontend",
+      "status": "completed"
+    },
+    {
+      "content": "Implement centralized typed ticket API boundary",
+      "id": "api-boundary",
+      "status": "in_progress"
+    },
+    {
+      "content": "Implement Ticket List states, filters, and navigation",
+      "id": "ticket-list",
+      "status": "pending"
+    },
+    {
+      "content": "Build frontend and audit IMP-020 scope",
+      "id": "verify-frontend",
+      "status": "pending"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="read_lints"><details>
+<summary>Tool use: **read_lints**</summary>
+
+Parameters:
+
+```json
+{
+  "paths": [
+    "/home/gunjan/Documents/support-ticket-management/frontend/src/api/types.js",
+    "/home/gunjan/Documents/support-ticket-management/frontend/src/api/tickets.js",
+    "/home/gunjan/Documents/support-ticket-management/frontend/src/views/TicketListView.jsx",
+    "/home/gunjan/Documents/support-ticket-management/frontend/src/styles.css",
+    "/home/gunjan/Documents/support-ticket-management/frontend/vite.config.js"
+  ]
+}
+```
+Result:
+
+```json
+{
+  "linterErrorsByFile": [
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/frontend/src/api/types.js"
+    },
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/frontend/src/api/tickets.js"
+    },
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/frontend/src/views/TicketListView.jsx"
+    },
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/frontend/src/styles.css"
+    },
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/frontend/vite.config.js"
+    }
+  ]
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+Cancelled
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/frontend/src",
+  "pattern": "fetch\\(|Number\\(ticket\\.id\\)|parseInt\\(ticket\\.id\\)|\\.filter\\("
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/frontend/src",
+  "pattern": "fetch\\(|Number\\(ticket\\.id\\)|parseInt\\(ticket\\.id\\)|\\.filter\\(",
+  "topFiles": [
+    {
+      "matchCount": 1,
+      "uri": "frontend/src/api/tickets.js"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 1
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2** • Run command: npm run build</summary>
+```bash
+npm run build
+```
+
+```
+Command 'npm' not found, but can be installed with:
+sudo apt install npm
+
+```
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Considering file access**
+
+I need to check on the temporary node temp file, which might be missing. I guess using `/tmp` is an option to see if it exists. I’m wondering if checking with `ls` in the shell will actually be allowed, since there are restrictions. It seems like I should look for files related to `node` under `/tmp`, specifically something like `/tmp/node*/bin/npm`. It'll help clarify the situation!
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob_file_search"><details>
+<summary>Tool use: **glob_file_search** • Searched codebase "" • **1** result in **1** directory</summary>
+
+Directory: **`/tmp`** (1 file)
+
+| File |
+|------|
+| `node-v22.23.2-linux-x64/bin/npm` |
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2**</summary>
+Cancelled
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2** • Run command: PATH=/tmp/node-v22.23.2-linux-x64/bin:$PATH npm run build</summary>
+```bash
+PATH=/tmp/node-v22.23.2-linux-x64/bin:$PATH npm run build
+```
+
+```
+
+> support-ticket-management-frontend@0.0.1 build
+> vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 30 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:  0.27 kB
+dist/assets/index-BEfkExxx.css    2.78 kB │ gzip:  1.10 kB
+dist/assets/index-Cf8f28Np.js   264.83 kB │ gzip: 83.93 kB
+
+✓ built in 300ms
+
+```
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Inspecting API URL and testing**
+
+I need to check the naming conventions for the API URL in the environment. It seems like I'll have to test the UI manually since there are no existing tests. While backend regression isn’t needed for frontend changes, I need to respond to the user about the backend regression results. I could mention that it can't be run due to missing backend files, but the baseline hasn't changed. I'll also need to review the git diff paths.
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2"><details>
+<summary>Tool use: **run_terminal_command_v2** • Run command: git status --short -- frontend backend spec</summary>
+```bash
+git status --short -- frontend backend spec
+```
+
+```
+ M frontend/src/styles.css
+ M frontend/src/views/TicketListView.jsx
+ M frontend/vite.config.js
+?? frontend/src/api/
+
+```
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/frontend/src",
+  "pattern": "OPEN\\s*→|IN_PROGRESS\\s*→|allowedTransitions|VALID_TRANSITIONS|pagination|sort|auth"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/frontend/src",
+  "pattern": "OPEN\\s*→|IN_PROGRESS\\s*→|allowedTransitions|VALID_TRANSITIONS|pagination|sort|auth",
+  "topFiles": [],
+  "totalFiles": 0,
+  "totalMatches": 0
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/src/api/tickets.js</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/frontend/src/views/TicketListView.jsx</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Audit existing frontend foundation and test setup",
+      "id": "audit-frontend",
+      "status": "completed"
+    },
+    {
+      "content": "Implement centralized typed ticket API boundary",
+      "id": "api-boundary",
+      "status": "completed"
+    },
+    {
+      "content": "Implement Ticket List states, filters, and navigation",
+      "id": "ticket-list",
+      "status": "completed"
+    },
+    {
+      "content": "Build frontend and audit IMP-020 scope",
+      "id": "verify-frontend",
+      "status": "completed"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Audit existing frontend foundation and test setup",
+      "id": "audit-frontend",
+      "status": "completed"
+    },
+    {
+      "content": "Implement centralized typed ticket API boundary",
+      "id": "api-boundary",
+      "status": "completed"
+    },
+    {
+      "content": "Implement Ticket List states, filters, and navigation",
+      "id": "ticket-list",
+      "status": "completed"
+    },
+    {
+      "content": "Build frontend and audit IMP-020 scope",
+      "id": "verify-frontend",
+      "status": "in_progress"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+## 1. Coverage audit
+### Already present before IMP-020
+- React 19 with Vite 8
+- React Router routes for `/`, `/tickets/new`, and `/tickets/:ticketId`
+- Shared layout and CSS styling
+- Placeholder list, create, and detail views
+- No frontend test framework
+
+### New IMP-020 implementation
+- Central API boundary and contract types
+- Backend-driven Ticket List, search, and status filtering
+- Loading, empty, and error states
+- String-ID detail navigation
+- Stale-request cancellation
+
+## 2. Changed files
+Created:
+- `frontend/src/api/types.js`
+- `frontend/src/api/tickets.js`
+
+Modified:
+- `frontend/src/views/TicketListView.jsx`
+- `frontend/src/styles.css`
+- `frontend/vite.config.js`
+
+No backend files changed.
+
+## 3. API boundary
+- Client: `frontend/src/api/tickets.js`
+- Types: `frontend/src/api/types.js`
+- Base URL: `VITE_API_BASE_URL`, defaulting to `/api`
+- Vite proxies local `/api` requests to `http://localhost:8080`
+- Implements `listTickets({ keyword, status, signal })`
+- Omits empty keyword and “All” status parameters
+- Uses `URLSearchParams` for combined criteria
+- Converts contractual errors into `ApiError`
+- Converts network, malformed JSON, malformed success payloads, and unexpected HTTP errors into a generic frontend error
+- Uses `AbortController` to prevent stale responses replacing newer results
+
+## 4. Ticket List
+- Displays ID, title, priority, assignee, and status
+- Shows `Loading tickets...` during requests
+- Shows appropriate empty and filtered-empty messages
+- Shows safe API error messages
+- Search submits explicitly rather than on every keystroke
+- Status selection requests the selected backend status
+- Combined criteria are sent together
+- Ticket titles link to `/tickets/:ticketId`
+- Create Ticket navigation remains available
+- Null assignees display as `Unassigned`
+
+## 5. Backend business logic boundary
+Confirmed:
+- Search and filtering semantics remain backend-owned
+- State-machine rules remain backend-owned
+- No frontend state machine was introduced
+- No local Ticket filtering is performed
+- IDs remain strings without numeric conversion
+
+## 6. Tests
+- Frontend tests added: none
+- Reason: no frontend testing framework existed, and introducing one was outside this task’s lightweight scope
+- Frontend build: successful
+- IDE diagnostics: none
+- Backend regression suite: not rerun because no backend files or behavior changed; existing 220-test baseline remains untouched
+
+## 7. Production changes
+No backend production code changed.
+
+## 8. Scope compliance
+Confirmed:
+- No API or backend behavior changes
+- No specification changes
+- No new product capabilities
+- No frontend state-machine duplication
+- No pagination, sorting, or authentication/authorization
+- No secrets
+
+## 9. Ambiguities
+None.
+
+## 10. Scope deviations
+None.
+
+---
+
+_**User**_
+
+Implement **IMP-021 — Create Ticket View + Navigation** for the Support Ticket Management System.
+
+IMP-020 is complete and approved.
+
+The backend is already implemented and tested through IMP-019.
+The frontend API boundary and Ticket List were implemented in IMP-020.
+
+Do NOT modify the backend unless a genuine frozen-contract violation blocks this task.
+
+Do NOT modify the frozen specifications.
+
+Do NOT begin IMP-022.
+
+---
+
+# 1. Objective
+
+Implement the frontend **Create Ticket** view and connect it to the existing backend API.
+
+The flow should be:
+
+```text
+Ticket List
+    ↓
+Create Ticket
+    ↓
+POST /api/tickets
+    ↓
+Ticket created with backend-generated ID and OPEN status
+    ↓
+Navigate to the created Ticket Detail route
+```
+
+The frontend must use the centralized API boundary established in IMP-020.
+
+Do NOT put raw `fetch()` calls inside the React component.
+
+---
+
+# 2. Inspect Existing Implementation First
+
+Before making changes, inspect:
+
+* `frontend/src/api/types.js`
+* `frontend/src/api/tickets.js`
+* `frontend/src/views/TicketListView.jsx`
+* existing `/tickets/new` route
+* existing shared layout
+* existing CSS
+* existing frontend project structure
+
+Reuse the existing conventions.
+
+Do not replace the frontend architecture unnecessarily.
+
+---
+
+# 3. API Boundary
+
+Extend the existing API boundary rather than creating a second API mechanism.
+
+Add the frontend operation corresponding to:
+
+```text
+POST /api/tickets
+```
+
+The request body is exactly:
+
+```json
+{
+  "title": "...",
+  "description": "...",
+  "priority": "MEDIUM",
+  "assignee": "..."
+}
+```
+
+Required fields:
+
+```text
+title
+description
+priority
+```
+
+Optional:
+
+```text
+assignee
+```
+
+Do NOT send:
+
+```text
+id
+status
+comments
+timestamp
+createdAt
+updatedAt
+```
+
+The backend owns:
+
+* ticket ID generation
+* initial status
+* persistence
+* validation authority
+
+---
+
+# 4. Create Response
+
+The backend returns the Ticket resource with exactly:
+
+```text
+id
+title
+description
+priority
+assignee
+status
+```
+
+The API boundary should preserve the response as returned.
+
+The frontend must not manufacture the ID or status.
+
+After successful creation, use the returned `id` as a string.
+
+Do not convert it using:
+
+```text
+Number(id)
+parseInt(id)
+```
+
+---
+
+# 5. Create Ticket Form
+
+Implement the existing `/tickets/new` route.
+
+The form must contain:
+
+```text
+Title
+Description
+Priority
+Assignee
+```
+
+### Title
+
+Required.
+
+Maximum length:
+
+```text
+200
+```
+
+### Description
+
+Required.
+
+Maximum length:
+
+```text
+5000
+```
+
+### Priority
+
+Required.
+
+Allowed values exactly:
+
+```text
+LOW
+MEDIUM
+HIGH
+CRITICAL
+```
+
+### Assignee
+
+Optional.
+
+No frontend length/format restriction should be added.
+
+An empty assignee should be represented appropriately as omitted or `null` according to the API boundary's established request convention.
+
+Do not invent an assignee validation rule.
+
+---
+
+# 6. Frontend Validation
+
+Implement lightweight client-side validation matching the frozen contract.
+
+The frontend may prevent submission when:
+
+* title is missing
+* title exceeds 200 characters
+* description is missing
+* description exceeds 5000 characters
+* priority is missing
+
+Do NOT add:
+
+* `trim()`-based required validation
+* minimum title length
+* minimum description length
+* regex validation
+* assignee format validation
+* assignee length validation
+* whitespace rejection
+* arbitrary character restrictions
+
+For example, do not turn:
+
+```text
+"   "
+```
+
+into a frontend validation error unless the backend contract explicitly requires that behavior.
+
+The backend remains authoritative.
+
+---
+
+# 7. Validation Messages
+
+Show meaningful field-level validation messages.
+
+Examples:
+
+```text
+Title is required.
+Title must be 200 characters or fewer.
+Description is required.
+Description must be 5000 characters or fewer.
+Priority is required.
+```
+
+Exact wording is an implementation choice.
+
+Do not expose Java/Spring validation implementation details.
+
+---
+
+# 8. Submit Behavior
+
+On submit:
+
+1. Run client-side validation.
+2. Prevent submission if validation fails.
+3. Prevent duplicate submissions while the request is in progress.
+4. Call the centralized create-ticket API method.
+5. Show an appropriate submitting/loading state.
+6. On success, navigate using the returned ticket ID.
+7. On failure, show a meaningful error without losing the user's entered values.
+
+Do not reset the form before successful creation.
+
+---
+
+# 9. Backend Error Handling
+
+The create operation can produce the existing backend contract errors.
+
+Handle at least:
+
+```text
+400 VALIDATION_ERROR
+```
+
+and unexpected/network failures.
+
+Display safe, user-understandable messages.
+
+Do not expose:
+
+* Java exception class names
+* stack traces
+* SQL
+* server internals
+* raw JSON dumps
+
+If a backend validation error contains useful field-level information, inspect the existing API error structure and use it only if it can be handled consistently.
+
+Do not invent a new backend error schema.
+
+---
+
+# 10. Successful Creation
+
+After a successful POST:
+
+```text
+POST /api/tickets
+```
+
+use the returned:
+
+```text
+id
+```
+
+to navigate to:
+
+```text
+/tickets/:ticketId
+```
+
+For example:
+
+```text
+/tickets/42
+```
+
+Do not construct a numeric ID.
+
+Do not assume the ID starts at 1.
+
+Do not assume the response status is OPEN locally.
+
+The returned backend resource is authoritative.
+
+---
+
+# 11. Navigation
+
+The user must be able to reach the Create Ticket view from the Ticket List.
+
+Preserve the existing:
+
+```text
+/tickets/new
+```
+
+route.
+
+Provide a clear way to return to the Ticket List without creating a ticket.
+
+For example:
+
+```text
+Back to Tickets
+```
+
+Do not introduce browser-history-dependent behavior where a simple explicit navigation link is sufficient.
+
+---
+
+# 12. Form State
+
+Use local React state or the existing project approach.
+
+Do NOT introduce:
+
+* Redux
+* Zustand
+* global form state
+* a large form library
+
+unless the project already uses one.
+
+Keep this task lightweight.
+
+---
+
+# 13. Controlled Inputs
+
+Prefer controlled inputs so the form state is explicit.
+
+Ensure:
+
+* title value is preserved during validation errors
+* description value is preserved
+* priority value is preserved
+* assignee value is preserved
+* server/API errors do not clear the form
+
+---
+
+# 14. Character Limits
+
+The UI may provide useful character feedback for:
+
+```text
+title / 200
+description / 5000
+```
+
+This is optional.
+
+If native `maxLength` is used, make sure it does not introduce behavior inconsistent with the backend contract.
+
+Do not add minimum lengths.
+
+---
+
+# 15. Priority Display
+
+The backend values remain:
+
+```text
+LOW
+MEDIUM
+HIGH
+CRITICAL
+```
+
+The UI may display human-readable labels such as:
+
+```text
+Low
+Medium
+High
+Critical
+```
+
+but the submitted JSON must contain the exact backend enum values.
+
+Do not submit:
+
+```text
+"Low"
+"Medium"
+"High"
+"Critical"
+```
+
+unless the API boundary explicitly converts them back to the required enum values.
+
+Prefer keeping the form value equal to the backend enum.
+
+---
+
+# 16. Initial Form State
+
+Use a sensible empty form:
+
+```text
+title: ""
+description: ""
+priority: ""
+assignee: ""
+```
+
+Do not default priority to a value unless the frozen UI flow or existing requirements explicitly require one.
+
+Priority is required.
+
+The user should make the selection.
+
+---
+
+# 17. Assignee Semantics
+
+Assignee is optional.
+
+Do not introduce:
+
+* user lookup
+* autocomplete
+* user database
+* email validation
+* dropdown of users
+* role logic
+
+It is simply an optional String.
+
+---
+
+# 18. Status
+
+Do NOT display an editable status field in the create form.
+
+The ticket is created by the backend in:
+
+```text
+OPEN
+```
+
+Do not send `status`.
+
+Do not add lifecycle controls.
+
+---
+
+# 19. Comments
+
+Do NOT include comments in the create form.
+
+Comments are implemented in a later task.
+
+---
+
+# 20. Accessibility
+
+Follow the same accessibility baseline established in IMP-020.
+
+At minimum:
+
+* every form control has a label
+* validation messages are associated with their fields where practical
+* required fields are communicated accessibly
+* submit button has meaningful text
+* loading/submission state is understandable
+* keyboard interaction works naturally
+* errors are visible and understandable
+
+Do not introduce a UI framework just for this.
+
+---
+
+# 21. Styling
+
+Reuse the existing CSS conventions.
+
+The Create Ticket view should visually fit the Ticket List.
+
+Do not spend the task on major visual redesign.
+
+Functional correctness is the priority.
+
+---
+
+# 22. API Client Tests / Frontend Tests
+
+IMP-020 intentionally did not introduce a frontend test framework.
+
+Do NOT introduce a large test framework as part of IMP-021 solely for testing this form.
+
+If a lightweight existing testing mechanism is now available, add focused tests.
+
+Otherwise document that frontend test coverage remains deferred to:
+
+```text
+IMP-024 — Frontend Tests / Usability
+```
+
+Do not pretend frontend tests exist if they do not.
+
+---
+
+# 23. Backend Regression
+
+Do not change backend production code.
+
+Because this task consumes an already-tested backend endpoint, backend tests do not need to be rerun solely because frontend files changed.
+
+However, if you discover a backend/API inconsistency:
+
+1. Stop.
+2. Identify the exact frozen contract.
+3. Report the inconsistency.
+4. Do not silently modify the backend.
+
+---
+
+# 24. Scope Restrictions
+
+Do NOT implement:
+
+* ticket detail functionality
+* ticket editing
+* comments
+* status transitions
+* terminal-state UI
+* ticket deletion
+* pagination
+* sorting
+* authentication
+* authorization
+* user management
+* frontend state machine
+* optimistic updates
+* caching layer
+* global state management
+* new product capabilities
+
+Only implement Create Ticket + required navigation/API integration.
+
+---
+
+# 25. Frozen Specifications
+
+Do not modify:
+
+```text
+spec/requirements.md
+spec/architecture.md
+spec/data-model.md
+spec/api-contract.md
+spec/state-machine.md
+spec/ui-flow.md
+spec/test-strategy.md
+```
+
+If you believe a specification must change, STOP and report the exact conflict.
+
+Do not resolve it by assumption.
+
+---
+
+# 26. Required Final Verification
+
+Verify at minimum:
+
+### Create form
+
+* title required
+* title max 200
+* description required
+* description max 5000
+* priority required
+* only approved priority values
+* assignee optional
+* no invented assignee validation
+* no status field
+* no comments field
+
+### Request
+
+Verify that POST contains only:
+
+```text
+title
+description
+priority
+assignee
+```
+
+with optional assignee semantics consistent with the API contract.
+
+### Success
+
+Verify:
+
+```text
+201 Created
+```
+
+is handled correctly.
+
+Verify navigation uses the returned String ID.
+
+### Failure
+
+Verify:
+
+```text
+400
+network/unexpected failure
+```
+
+produce meaningful UI feedback and preserve form values.
+
+### UX
+
+Verify:
+
+* duplicate submit prevention
+* loading/submitting state
+* back navigation
+* accessible labels
+* no accidental form reset on failure
+
+---
+
+# 27. Required Final Report
+
+After implementation, STOP.
+
+Report exactly:
+
+## 1. Coverage audit
+
+### Already present before IMP-021
+
+### New IMP-021 implementation
+
+---
+
+## 2. Changed files
+
+List every created/modified file.
+
+Clearly identify frontend files.
+
+If any backend file changed, explain why.
+
+---
+
+## 3. API boundary
+
+Report:
+
+* create method location
+* endpoint
+* request payload
+* response handling
+* error handling
+* String ID handling
+
+---
+
+## 4. Form behavior
+
+Report:
+
+* fields
+* validation
+* optional assignee behavior
+* loading/submission behavior
+* duplicate prevention
+* success navigation
+* error behavior
+
+---
+
+## 5. Backend boundary
+
+Explicitly confirm:
+
+* backend generates ID
+* backend owns initial OPEN status
+* frontend does not send status
+* frontend does not implement lifecycle rules
+* backend remains authoritative for validation
+
+---
+
+## 6. Tests / Verification
+
+Report:
+
+* frontend tests added, if any
+* frontend build result
+* any manual verification performed
+* backend regression status
+
+If frontend tests were not added, state that clearly and explain why.
+
+---
+
+## 7. Production changes
+
+State whether backend production code changed.
+
+---
+
+## 8. Scope compliance
+
+Confirm:
+
+* no specification changes
+* no API contract changes
+* no backend behavior changes
+* no new product capabilities
+* no state-machine duplication
+* no comments
+* no status controls
+* no editing
+* no authentication/authorization
+* no secrets
+
+---
+
+## 9. Ambiguities
+
+List any.
+
+If none:
+
+```text
+None.
+```
+
+---
+
+## 10. Scope deviations
+
+List any.
+
+If none:
+
+```text
+None.
+```
+
+**STOP after IMP-021. Do not begin IMP-022 automatically.**
+
+
+---
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: </summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: </summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
 <summary>Tool use: **read_file_v2** • Read file: </summary>
 
 </details></tool-use>
