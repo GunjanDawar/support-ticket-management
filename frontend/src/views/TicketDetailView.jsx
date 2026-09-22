@@ -1,12 +1,36 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ApiError, getTicket, updateTicket } from '../api/tickets'
+import {
+  addComment,
+  ApiError,
+  changeTicketStatus,
+  getTicket,
+  updateTicket,
+} from '../api/tickets'
 import { PRIORITIES } from '../api/types'
+
+const STATUS_ACTIONS = Object.freeze({
+  OPEN: [
+    { label: 'Move to In Progress', target: 'IN_PROGRESS' },
+    { label: 'Cancel', target: 'CANCELLED' },
+  ],
+  IN_PROGRESS: [
+    { label: 'Resolve', target: 'RESOLVED' },
+    { label: 'Cancel', target: 'CANCELLED' },
+  ],
+  RESOLVED: [{ label: 'Close', target: 'CLOSED' }],
+  CLOSED: [],
+  CANCELLED: [],
+})
 
 export default function TicketDetailView() {
   const { ticketId } = useParams()
   const mountedRef = useRef(true)
+  const activeTicketIdRef = useRef(ticketId)
+  activeTicketIdRef.current = ticketId
   const savingRef = useRef(false)
+  const transitioningRef = useRef(false)
+  const commentingRef = useRef(false)
   const [ticket, setTicket] = useState(null)
   const [loadState, setLoadState] = useState('loading')
   const [loadError, setLoadError] = useState('')
@@ -15,6 +39,12 @@ export default function TicketDetailView() {
   const [errors, setErrors] = useState({})
   const [updateError, setUpdateError] = useState('')
   const [isSaving, setIsSaving] = useState(false)
+  const [statusError, setStatusError] = useState('')
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [commentBody, setCommentBody] = useState('')
+  const [commentError, setCommentError] = useState('')
+  const [commentValidationError, setCommentValidationError] = useState('')
+  const [isCommenting, setIsCommenting] = useState(false)
 
   useEffect(() => {
     mountedRef.current = true
@@ -25,6 +55,11 @@ export default function TicketDetailView() {
       setLoadError('')
       setTicket(null)
       setIsEditing(false)
+      setUpdateError('')
+      setStatusError('')
+      setCommentError('')
+      setCommentValidationError('')
+      setCommentBody('')
 
       try {
         const result = await getTicket(ticketId, { signal: controller.signal })
@@ -70,6 +105,30 @@ export default function TicketDetailView() {
     setErrors((current) => ({ ...current, [name]: undefined }))
   }
 
+  async function refreshCurrentTicket() {
+    try {
+      const refreshed = await getTicket(ticket.id)
+      if (!mountedRef.current || activeTicketIdRef.current !== ticket.id) {
+        return false
+      }
+      setTicket(refreshed)
+      if (refreshed.status === 'CLOSED' || refreshed.status === 'CANCELLED') {
+        setIsEditing(false)
+      }
+      return true
+    } catch (error) {
+      if (!mountedRef.current) {
+        return false
+      }
+      if (error instanceof ApiError && error.code === 'TICKET_NOT_FOUND') {
+        setTicket(null)
+        setIsEditing(false)
+        setLoadState('notFound')
+      }
+      return false
+    }
+  }
+
   async function handleSave(event) {
     event.preventDefault()
     if (savingRef.current) {
@@ -93,17 +152,13 @@ export default function TicketDetailView() {
     setIsSaving(true)
     try {
       const updated = await updateTicket(ticket.id, changes)
-      if (!mountedRef.current) {
+      if (!mountedRef.current || activeTicketIdRef.current !== ticket.id) {
         return
       }
       setTicket((current) => ({ ...current, ...updated }))
       setIsEditing(false)
       setForm(null)
-
-      const refreshed = await getTicket(ticket.id)
-      if (mountedRef.current) {
-        setTicket(refreshed)
-      }
+      await refreshCurrentTicket()
     } catch (error) {
       if (!mountedRef.current) {
         return
@@ -117,7 +172,7 @@ export default function TicketDetailView() {
         error.code === 'TERMINAL_TICKET_CONFLICT'
       ) {
         setUpdateError('This ticket is terminal and can no longer be edited.')
-        await refreshAfterConflict(ticket.id, mountedRef, setTicket, setIsEditing)
+        await refreshCurrentTicket()
       } else {
         setUpdateError(error.message || 'Unable to update the ticket. Please try again.')
       }
@@ -125,6 +180,99 @@ export default function TicketDetailView() {
       savingRef.current = false
       if (mountedRef.current) {
         setIsSaving(false)
+      }
+    }
+  }
+
+  async function handleStatusChange(targetStatus) {
+    if (transitioningRef.current) {
+      return
+    }
+
+    transitioningRef.current = true
+    setIsTransitioning(true)
+    setStatusError('')
+    try {
+      const updated = await changeTicketStatus(ticket.id, targetStatus)
+      if (!mountedRef.current || activeTicketIdRef.current !== ticket.id) {
+        return
+      }
+      setTicket((current) => ({ ...current, ...updated }))
+      const refreshed = await refreshCurrentTicket()
+      if (!refreshed && mountedRef.current && loadState !== 'notFound') {
+        setStatusError('Status changed, but the latest ticket details could not be loaded.')
+      }
+    } catch (error) {
+      if (!mountedRef.current) {
+        return
+      }
+      if (error instanceof ApiError && error.code === 'TICKET_NOT_FOUND') {
+        setTicket(null)
+        setLoadState('notFound')
+      } else if (
+        error instanceof ApiError &&
+        error.code === 'INVALID_STATUS_TRANSITION'
+      ) {
+        setStatusError(
+          'This status change is no longer allowed. Refreshing the latest ticket state.',
+        )
+        await refreshCurrentTicket()
+      } else {
+        setStatusError(error.message || 'Unable to change status. Please try again.')
+      }
+    } finally {
+      transitioningRef.current = false
+      if (mountedRef.current) {
+        setIsTransitioning(false)
+      }
+    }
+  }
+
+  async function handleAddComment(event) {
+    event.preventDefault()
+    if (commentingRef.current) {
+      return
+    }
+
+    setCommentError('')
+    if (commentBody.length === 0) {
+      setCommentValidationError('Comment is required.')
+      return
+    }
+
+    commentingRef.current = true
+    setIsCommenting(true)
+    setCommentValidationError('')
+    try {
+      await addComment(ticket.id, commentBody)
+      if (!mountedRef.current || activeTicketIdRef.current !== ticket.id) {
+        return
+      }
+      setCommentBody('')
+      const refreshed = await refreshCurrentTicket()
+      if (!refreshed && mountedRef.current && loadState !== 'notFound') {
+        setCommentError('Comment added, but the latest ticket details could not be loaded.')
+      }
+    } catch (error) {
+      if (!mountedRef.current) {
+        return
+      }
+      if (error instanceof ApiError && error.code === 'TICKET_NOT_FOUND') {
+        setTicket(null)
+        setLoadState('notFound')
+      } else if (
+        error instanceof ApiError &&
+        error.code === 'TERMINAL_TICKET_CONFLICT'
+      ) {
+        setCommentError('This ticket is terminal and can no longer accept comments.')
+        await refreshCurrentTicket()
+      } else {
+        setCommentError(error.message || 'Unable to add comment. Please try again.')
+      }
+    } finally {
+      commentingRef.current = false
+      if (mountedRef.current) {
+        setIsCommenting(false)
       }
     }
   }
@@ -179,8 +327,40 @@ export default function TicketDetailView() {
         <TicketFields ticket={ticket} />
       )}
 
+      <section className="status-actions" aria-labelledby="status-actions-heading">
+        <h2 id="status-actions-heading">Status Actions</h2>
+        {terminal ? (
+          <p>This ticket is terminal. No status actions are available.</p>
+        ) : isEditing ? (
+          <p>Finish or cancel editing before changing status.</p>
+        ) : (
+          <div className="action-buttons">
+            {STATUS_ACTIONS[ticket.status].map((action) => (
+              <button
+                key={action.target}
+                type="button"
+                disabled={isTransitioning}
+                onClick={() => handleStatusChange(action.target)}
+              >
+                {isTransitioning ? 'Updating status...' : action.label}
+              </button>
+            ))}
+          </div>
+        )}
+        {statusError && (
+          <div className="state-panel error-panel operation-error" role="alert">
+            <p>{statusError}</p>
+          </div>
+        )}
+      </section>
+
       <section className="comments-section" aria-labelledby="comments-heading">
         <h2 id="comments-heading">Comments</h2>
+        {commentError && (
+          <div className="state-panel error-panel operation-error" role="alert">
+            <p>{commentError}</p>
+          </div>
+        )}
         {ticket.comments.length === 0 ? (
           <p className="state-panel">No comments yet.</p>
         ) : (
@@ -192,6 +372,40 @@ export default function TicketDetailView() {
               </li>
             ))}
           </ul>
+        )}
+
+        {terminal ? (
+          <p className="terminal-note">Comments are read-only for this terminal ticket.</p>
+        ) : (
+          <form className="comment-form" onSubmit={handleAddComment} noValidate>
+            <div className="form-field">
+              <label htmlFor="comment-body">Add a comment</label>
+              <textarea
+                id="comment-body"
+                name="body"
+                rows="4"
+                value={commentBody}
+                required
+                aria-required="true"
+                aria-invalid={Boolean(commentValidationError)}
+                aria-describedby={
+                  commentValidationError ? 'comment-body-error' : undefined
+                }
+                onChange={(event) => {
+                  setCommentBody(event.target.value)
+                  setCommentValidationError('')
+                }}
+              />
+              {commentValidationError && (
+                <p className="field-error" id="comment-body-error">
+                  {commentValidationError}
+                </p>
+              )}
+            </div>
+            <button type="submit" disabled={isCommenting}>
+              {isCommenting ? 'Adding comment...' : 'Add Comment'}
+            </button>
+          </form>
         )}
       </section>
 
@@ -414,21 +628,6 @@ function validate(form) {
     errors.priority = 'Priority is required.'
   }
   return errors
-}
-
-async function refreshAfterConflict(id, mountedRef, setTicket, setIsEditing) {
-  try {
-    const refreshed = await getTicket(id)
-    if (!mountedRef.current) {
-      return
-    }
-    setTicket(refreshed)
-    if (refreshed.status === 'CLOSED' || refreshed.status === 'CANCELLED') {
-      setIsEditing(false)
-    }
-  } catch {
-    // Keep the existing safe conflict message if the refresh also fails.
-  }
 }
 
 function formatEnum(value) {

@@ -316,6 +316,33 @@ select:disabled {
   margin: 2rem 0;
 }
 
+.status-actions {
+  margin: 2rem 0;
+  padding: 1rem;
+  border: 1px solid #d6dce8;
+  border-radius: 0.5rem;
+  background: #ffffff;
+}
+
+.status-actions h2,
+.status-actions p {
+  margin-top: 0;
+}
+
+.status-actions p:last-child {
+  margin-bottom: 0;
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.operation-error {
+  margin-bottom: 1rem;
+}
+
 .comments-section h2 {
   margin-bottom: 1rem;
 }
@@ -343,6 +370,25 @@ select:disabled {
 .comment-list time {
   color: #53627a;
   font-size: 0.875rem;
+}
+
+.comment-form {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #d6dce8;
+  border-radius: 0.5rem;
+  background: #ffffff;
+}
+
+.comment-form button {
+  justify-self: start;
+}
+
+.terminal-note {
+  color: #53627a;
+  font-style: italic;
 }
 
 .table-scroll {

@@ -108,6 +108,46 @@ export async function updateTicket(id, changes) {
   return parseSuccessfulJson(response, isTicketResponse)
 }
 
+/**
+ * @param {string} id
+ * @param {import('./types').TicketStatus} targetStatus
+ * @returns {Promise<import('./types').TicketResponse>}
+ */
+export async function changeTicketStatus(id, targetStatus) {
+  const response = await request(
+    `${API_BASE_URL}/tickets/${encodeURIComponent(id)}/status`,
+    {
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ targetStatus }),
+    },
+  )
+  return parseSuccessfulJson(response, isTicketResponse)
+}
+
+/**
+ * @param {string} id
+ * @param {string} body
+ * @returns {Promise<import('./types').CommentResponse>}
+ */
+export async function addComment(id, body) {
+  const response = await request(
+    `${API_BASE_URL}/tickets/${encodeURIComponent(id)}/comments`,
+    {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ body }),
+    },
+  )
+  return parseSuccessfulJson(response, isCommentResponse)
+}
+
 async function request(url, options) {
   try {
     const response = await fetch(url, options)
@@ -187,12 +227,15 @@ function isTicketDetailResponse(ticket) {
   return (
     isTicketResponse(ticket) &&
     Array.isArray(ticket.comments) &&
-    ticket.comments.every(
-      (comment) =>
-        typeof comment?.id === 'string' &&
-        typeof comment.body === 'string' &&
-        typeof comment.timestamp === 'string' &&
-        !Number.isNaN(Date.parse(comment.timestamp)),
-    )
+    ticket.comments.every(isCommentResponse)
+  )
+}
+
+function isCommentResponse(comment) {
+  return (
+    typeof comment?.id === 'string' &&
+    typeof comment.body === 'string' &&
+    typeof comment.timestamp === 'string' &&
+    !Number.isNaN(Date.parse(comment.timestamp))
   )
 }
