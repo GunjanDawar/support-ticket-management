@@ -1833,6 +1833,398 @@ _**Agent (gpt-5.6-sol)**_
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
 <summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/spec/requirements.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+Updated only `spec/requirements.md` as requested. It is complete and ready to serve as the approved requirements baseline.
+
+---
+
+_**User**_
+
+We have completed and approved `spec/requirements.md`.
+
+Now create the architecture specification for the Support Ticket Management System.
+
+### Objective
+
+Create only:
+
+`spec/architecture.md`
+
+This is an architecture/design specification step. Do NOT implement any code.
+
+### Source of truth
+
+Use the following as authoritative inputs:
+
+1. `spec/requirements.md`
+2. The finalized requirement-analysis decisions already reflected in `spec/requirements.md`
+3. The assignment constraints already captured in `spec/requirements.md`
+
+Do not invent new functional requirements.
+
+---
+
+## 1. Architecture overview
+
+Define the overall architecture of the system.
+
+The proposed system consists of:
+
+* React/Next.js or equivalent frontend
+* Spring Boot REST backend
+* PostgreSQL application database
+* H2 database for automated tests
+
+Explain the responsibility and boundary of each major part.
+
+Describe how a typical request flows from:
+
+UI → REST API → Controller → Service/business logic → Repository/data access → Database
+
+and how the response/error flows back to the UI.
+
+---
+
+## 2. Backend architecture
+
+Define a clear layered architecture for the Spring Boot backend.
+
+At minimum, describe these layers:
+
+* Controller/API layer
+* Service/business layer
+* Repository/data-access layer
+* Persistence/domain layer
+* DTO/request-response layer
+* Exception/error-handling layer
+
+For each layer specify:
+
+* Responsibility
+* What it may depend on
+* What it must not be responsible for
+
+Keep business rules out of controllers where appropriate.
+
+---
+
+## 3. Frontend architecture
+
+Define the high-level frontend structure.
+
+Describe the responsibilities for:
+
+* Ticket list
+* Ticket creation
+* Ticket details
+* Ticket editing
+* Comments
+* Search
+* Status filtering
+* Status transition UI
+* Error display
+
+Do not design detailed UI screens or visual styling yet. The detailed UI flow will be specified separately in `spec/ui-flow.md`.
+
+---
+
+## 4. State-machine architecture
+
+The backend must be the authoritative enforcer of ticket lifecycle rules.
+
+Describe where and how the state-transition rules will be enforced.
+
+The allowed transitions are exactly:
+
+* OPEN → IN_PROGRESS
+* IN_PROGRESS → RESOLVED
+* RESOLVED → CLOSED
+* OPEN → CANCELLED
+* IN_PROGRESS → CANCELLED
+
+All other transitions, including same-status transitions, must be rejected.
+
+Explain why state-transition validation belongs in the backend business layer rather than relying on frontend controls.
+
+Do not create the standalone state-machine specification yet. That will be documented separately in:
+
+`spec/state-machine.md`
+
+---
+
+## 5. Validation architecture
+
+Describe how validation will be handled.
+
+Cover:
+
+* Required title
+* Title maximum length
+* Required description
+* Description maximum length
+* Valid priority values
+* Required comment body
+* Status-transition validation
+* Restrictions on modifying CLOSED/CANCELLED tickets
+
+Clearly distinguish:
+
+* Request/input validation
+* Business-rule validation
+* State-transition validation
+
+Backend validation must remain authoritative even if the frontend performs validation.
+
+---
+
+## 6. Error-handling architecture
+
+Define the high-level error-handling approach.
+
+Cover at least:
+
+* 400 Bad Request for validation failures
+* 404 Not Found for nonexistent tickets
+* 409 Conflict for invalid status transitions
+* Structured JSON error response containing:
+
+  * code
+  * message
+  * status
+  * path
+
+Describe how backend errors are propagated to the UI and displayed as meaningful user-facing errors.
+
+Do not define every endpoint-specific error response yet. Detailed API contracts belong in `spec/api-contract.md`.
+
+---
+
+## 7. Persistence architecture
+
+Describe how persistence will work.
+
+Application:
+
+* PostgreSQL
+
+Automated tests:
+
+* H2
+
+Explain:
+
+* How the backend interacts with the database
+* Repository responsibility
+* Transaction boundaries at a high level
+* How rejected status transitions must leave persisted state unchanged
+* How restart durability is achieved conceptually
+
+Do not define the detailed entity/table schema yet. That belongs in:
+
+`spec/data-model.md`
+
+---
+
+## 8. API architecture
+
+Define the API responsibilities at a high level.
+
+The backend exposes REST APIs for:
+
+* Creating tickets
+* Listing tickets
+* Viewing ticket details
+* Updating title/description/priority/assignee
+* Adding comments
+* Searching
+* Filtering
+* Performing status transitions
+
+Important architectural constraint:
+
+* Ordinary ticket updates use PATCH.
+* Status transitions use a dedicated operation/endpoint.
+* Ordinary updates must not change status.
+
+Do not finalize detailed endpoint paths, request schemas, response schemas, or HTTP examples yet. Those belong in `spec/api-contract.md`.
+
+---
+
+## 9. Testing architecture
+
+Define the high-level testing approach.
+
+Cover:
+
+* Unit testing of business logic
+* Controller/API testing where appropriate
+* Integration testing
+* H2 for automated database tests
+* REST API based state-machine integration tests
+* Verification of database state after valid transitions
+* Verification that invalid transitions do not modify database state
+* Backend validation tests
+
+Do not write actual tests yet.
+
+Detailed testing strategy will be documented separately in:
+
+`spec/test-strategy.md`
+
+---
+
+## 10. Dependency and responsibility rules
+
+Define architectural rules that prevent poor separation of concerns.
+
+Examples:
+
+* Controllers should handle HTTP concerns, not core business rules.
+* Services should contain business logic.
+* Repositories should handle persistence/data access.
+* DTOs should represent API contracts rather than exposing persistence entities directly where appropriate.
+* State-transition rules must be enforced server-side.
+* Frontend must not be the source of truth for business rules.
+* Database access should not be performed directly from controllers.
+* Status updates must not be mixed into ordinary field-update operations.
+
+Only include rules that are justified by the approved requirements or sound architectural practice. Do not introduce unnecessary technologies or patterns.
+
+---
+
+## 11. Architectural decisions and rationale
+
+Document important architecture decisions and their rationale.
+
+At minimum address:
+
+* Why layered architecture is being used
+* Why backend owns business/state-machine enforcement
+* Why status transitions are separated from ordinary PATCH updates
+* Why PostgreSQL is used for application persistence
+* Why H2 is used for automated tests
+* Why DTO/API boundaries are separated from persistence concerns
+
+Clearly distinguish:
+
+* Requirement-driven decisions
+* Architecture choices made for maintainability/testability
+
+Do not claim a decision was explicitly required by the assignment if it is actually an architectural choice.
+
+---
+
+## 12. Requirement traceability
+
+Add a traceability section mapping the major architecture decisions to requirement IDs from:
+
+`spec/requirements.md`
+
+For example:
+
+* REST architecture → FR-013 / TC-004
+* Layered backend → supports FR/BR/VR requirements
+* State-machine enforcement → BR-009–BR-017
+* Terminal restrictions → BR-018–BR-019
+* PostgreSQL persistence → PR-001–PR-004
+* H2 testing → PR-003 / TC-011
+* Structured errors → ER-001–ER-006
+* PATCH + dedicated status operation → BR-020–BR-021 / TC-009–TC-010
+
+Ensure every major architectural decision can be traced back to a requirement or is explicitly identified as an architectural choice.
+
+---
+
+## 13. Explicit non-goals
+
+Include a short section stating that this architecture does not introduce:
+
+* Authentication
+* Authorization
+* Roles
+* Notifications
+* Attachments
+* Audit history
+* Pagination
+* Sorting
+* Ticket deletion
+* Comment editing/deletion
+
+These are outside the approved scope unless later requirements explicitly change.
+
+---
+
+## Important constraints
+
+1. Create/modify ONLY `spec/architecture.md`.
+2. Do NOT modify `spec/requirements.md`.
+3. Do NOT create any Java, frontend, SQL, configuration, test, or implementation files.
+4. Do NOT create the other specification files yet.
+5. Do NOT finalize detailed API endpoint paths.
+6. Do NOT finalize the database schema/entity fields.
+7. Do NOT create the standalone state-machine specification.
+8. Do NOT create the detailed UI flow.
+9. Do NOT create the detailed test strategy.
+10. Do NOT add functionality not present in the approved requirements.
+11. Where something is an architectural choice rather than an explicit requirement, label it clearly as an architectural decision.
+
+Before finishing, perform an internal consistency check against `spec/requirements.md`.
+
+After creating the file, report:
+
+* Files created/modified
+* Major architecture decisions
+* Any assumptions or unresolved architectural questions
+* Confirmation that no implementation code was generated
+* Confirmation that the architecture remains consistent with `spec/requirements.md`
+
+
+---
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: </summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: </summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: </summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: </summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
 Status: **loading**
 
 </details></tool-use>
