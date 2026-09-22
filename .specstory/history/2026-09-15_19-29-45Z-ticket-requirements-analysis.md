@@ -7066,3 +7066,1589 @@ Do not create frontend code.
 Do not create tests.
 Do not modify any other specification.
 Do not proceed to implementation.
+
+
+---
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Reviewing audit processes**
+
+I need a strict audit, and I’m considering using a subagent for this task. Maybe I can narrow down my focus across five large files, specifically looking at direct read sections. While I could use a subagent for exploration, it seems unnecessary since I'm doing a task review. I’ll need to inspect the trace table and make sure I read relevant ranges from all files in parallel, paying attention to requirements IDs, architectural decisions, and state rules.
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/spec/ui-flow.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/spec/state-machine.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/spec/api-contract.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/spec/architecture.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/spec/requirements.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Identifying inaccuracies**
+
+I’m looking to pinpoint inaccuracies in the information I've been going through. For Ticket List API, I see that Section 3.1 mentions ticket summaries, and the architecture seems good with front-end details in Section 4, API in Section 5, and state SM001 INV001.
+
+In terms of ticket detail, there’s no issues in state reporting, but I need to clarify if the status in SM010, which denotes dedicated status, implies ordinary edit separation. It seems like it only refers to dedicated status. 
+
+For status flow, references from SM002 to SM010 should include all relevant sections, while some states like SM005-6 show no actions. I'm also verifying comment flow because SM009’s rejection transition should be addressed correctly. The client validation states need a reevaluation too.
+**Clarifying validation and error states**
+
+I’m looking into the state dynamics here: for SM007, we have a same-state rejection and unlisted pairs in SM008. SM009’s rejection invariant indicates that client validation shouldn’t dictate transitions; perhaps a better reference could be INV011 for backend authority instead.
+
+Regarding structured errors, I see INV013-15 outlines the exact errors. In the terminal UI, I need to address that SM005-6 have outgoing terminals, and though there are duplicates like INV005-6, they remain relevant.
+
+Overall, I’m verifying backend persistence issues with SM009 and INV007 as duplicates, and noting the authority from INV011 is correct.
+**Reviewing architecture references**
+
+I’m analyzing the architecture references: in the edit section, Sections 4 and 6.2 correctly mention business validation with AD002 and AD003.
+
+For comments, I confirm Sections 4 and 6.2 are correct too, as well as error handling in Sections 4 and 7 with AD008. Client validation is appropriately outlined in Sections 4 and 6. 
+
+While the terminal sections (4-6) are broad, I think it’s better to specify them as Sections 4, 5, and 6.2. For the backend row architecture, only AD002 and AD007 are listed; that’s acceptable. AD007 transactions relate to rejected transitions and stale conflict, suggesting a functional UI refresh might not require transaction choices but can help preserve state.
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "\\bSM-[0-9]{3}\\b|\\bINV-[0-9]{3}\\b"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "\\bSM-[0-9]{3}\\b|\\bINV-[0-9]{3}\\b",
+  "topFiles": [
+    {
+      "matchCount": 29,
+      "uri": "spec/ui-flow.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 29
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "\\bAPI-[0-9]{3}\\b|\\bAD-[0-9]{3}\\b"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "\\bAPI-[0-9]{3}\\b|\\bAD-[0-9]{3}\\b",
+  "topFiles": [
+    {
+      "matchCount": 9,
+      "uri": "spec/ui-flow.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 9
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "\\b(FR|BR|VR|ER|AC|TC)-[0-9]{3}\\b"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "\\b(FR|BR|VR|ER|AC|TC)-[0-9]{3}\\b",
+  "topFiles": [
+    {
+      "matchCount": 17,
+      "uri": "spec/ui-flow.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 17
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/spec/ui-flow.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+rg: regex parse error:
+    (?:\bSM-[0-9]{3}\b|(?<!UI-)\bINV-[0-9]{3}\b)
+                       ^^^^
+error: look-around, including look-ahead and look-behind, is not supported
+
+Consider enabling PCRE2 with the --pcre2 flag, which can handle backreferences
+and look-around.
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "\\bAPI-[0-9]{3}\\b|\\bAD-[0-9]{3}\\b|\\b(FR|BR|VR|ER|AC|TC)-[0-9]{3}\\b"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "\\bAPI-[0-9]{3}\\b|\\bAD-[0-9]{3}\\b|\\b(FR|BR|VR|ER|AC|TC)-[0-9]{3}\\b",
+  "topFiles": [
+    {
+      "matchCount": 17,
+      "uri": "spec/ui-flow.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 17
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="read_lints"><details>
+<summary>Tool use: **read_lints**</summary>
+
+Parameters:
+
+```json
+{
+  "paths": [
+    "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md"
+  ]
+}
+```
+Result:
+
+```json
+{
+  "linterErrorsByFile": [
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md"
+    }
+  ]
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "SM-[0-9]{3}|INV-[0-9]{3}"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "SM-[0-9]{3}|INV-[0-9]{3}",
+  "topFiles": [
+    {
+      "matchCount": 29,
+      "uri": "spec/ui-flow.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 29
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/spec/ui-flow.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+Corrected traceability in `spec/ui-flow.md`:
+
+- Removed unrelated `SM-009` from Comment flow.
+- Corrected client validation to `INV-011`, `VR-002–VR-007`, and `ER-006`.
+- Narrowed structured errors to `ER-001–ER-005`.
+- Refined terminal architecture section references.
+- Corrected UI/API boundary from API Sections 2 and 15 to Sections 2–3.
+
+No functional UI behavior changed. No cross-specification contradictions remain. Only `spec/ui-flow.md` was modified.
+
+---
+
+_**User**_
+
+Create `spec/test-strategy.md` as the **Test Strategy Specification** for the Support Ticket Management System.
+
+This is a specification artifact, not implementation code and not a list of generated test methods.
+
+Read and use the following existing specifications as authoritative context:
+
+* `spec/requirements.md`
+* `spec/architecture.md`
+* `spec/data-model.md`
+* `spec/api-contract.md`
+* `spec/state-machine.md`
+* `spec/ui-flow.md`
+* `rules/java-springboot.md`
+* `rules/testing.md`
+* `rules/api-standards.md`
+
+Authority order remains:
+
+1. Requirements
+2. Architecture
+3. Data Model
+4. API Contract
+5. State Machine
+6. UI Flow
+7. Test Strategy
+
+Do not introduce new product behavior or change any approved requirement.
+
+## Objective
+
+Define a practical, traceable testing strategy that explains:
+
+* what must be tested
+* why it must be tested
+* which test level should verify it
+* what important risks each test level covers
+* how requirements and acceptance criteria are mapped to tests
+* how the state machine is verified
+* how persistence is verified
+* how API validation and error handling are verified
+* how search/filter behavior is verified
+* how terminal-state restrictions are verified
+* how frontend behavior is verified
+* what H2 tests can and cannot prove compared with PostgreSQL
+* how test data and test isolation should be handled
+
+Do NOT generate actual Java test classes, test methods, React tests, SQL scripts, or implementation code.
+
+---
+
+# Required Structure
+
+Use this structure unless an existing project convention requires a minor formatting adjustment:
+
+# Test Strategy Specification
+
+## 1. Purpose
+
+Explain the purpose of this document and its relationship to the other specifications.
+
+Make clear that the test strategy defines the testing approach before implementation and test generation.
+
+## 2. Testing Principles
+
+Define principles such as:
+
+* tests must verify approved requirements rather than implementation details
+* backend behavior is authoritative
+* business rules must be tested at the service/business level
+* critical behavior must also be verified through API/integration tests
+* state-machine behavior must be tested through the REST API and persisted state
+* tests should verify both successful and rejected operations
+* rejected operations must verify that state/data remain unchanged where required
+* tests should be deterministic and isolated
+* tests must not depend on execution order
+* tests should avoid unnecessary duplication across test levels
+* tests must not introduce requirements that are absent from the approved specifications
+
+## 3. Test Levels
+
+Define the following test levels and their responsibilities:
+
+### 3.1 Unit Tests
+
+Cover business logic in isolation.
+
+Include:
+
+* state transition decision logic
+* allowed and rejected transitions
+* same-state rejection
+* terminal-state behavior
+* validation/business rules that belong to the service layer
+* search/filter semantics where appropriate
+* terminal restrictions for updates/comments
+
+Explain what unit tests should NOT attempt to prove, such as real database persistence or HTTP serialization.
+
+### 3.2 Controller/API Tests
+
+Cover REST contract behavior.
+
+Include:
+
+* request validation
+* response status codes
+* response structure
+* JSON serialization/deserialization
+* malformed IDs
+* missing resources
+* unknown request fields
+* ordinary PATCH restrictions
+* dedicated status endpoint
+* comment endpoint
+* query parameter behavior
+* structured error responses
+
+### 3.3 Repository/Data Access Tests
+
+Cover persistence behavior.
+
+Include:
+
+* ticket persistence
+* comment persistence
+* ticket-comment relationship
+* status persistence
+* search query behavior
+* status filtering
+* combined search + status filtering
+* persistence constraints relevant to the approved data model
+
+Clearly distinguish persistence behavior from business/state-machine behavior.
+
+### 3.4 Integration Tests
+
+Cover multiple backend layers working together.
+
+Include:
+
+* REST → service → repository → database
+* create/read/update flows
+* comments
+* search/filter
+* validation/error propagation
+* persistence of successful state changes
+
+### 3.5 State-Machine Integration Tests
+
+This is a critical assignment requirement.
+
+Explicitly require state-machine integration tests to:
+
+1. call the REST API
+2. perform a status transition
+3. verify the HTTP response
+4. verify the persisted database state
+5. attempt invalid transitions
+6. verify the expected 409 response
+7. verify the persisted status remains unchanged after rejection
+
+Ensure the strategy covers the complete 5×5 state-transition matrix from `spec/state-machine.md`.
+
+Do not replace matrix coverage with only a few representative examples.
+
+### 3.6 Frontend/UI Tests
+
+Define the UI behaviors that should be tested, including:
+
+* create ticket flow
+* ticket list rendering
+* detail view
+* editing allowed fields
+* status actions
+* comment submission
+* search
+* status filtering
+* combined search/filter
+* loading states
+* duplicate-submission prevention
+* meaningful API error display
+* terminal-state controls
+* stale-state refresh after a 409 response
+
+The UI must not be treated as the authoritative enforcement layer.
+
+---
+
+## 4. Functional Test Coverage
+
+Create a table with columns:
+
+| Area | Required Coverage | Primary Test Level | Supporting Test Level |
+| ---- | ----------------- | ------------------ | --------------------- |
+
+Cover at least:
+
+* ticket creation
+* ticket listing
+* ticket details
+* title update
+* description update
+* priority update
+* assignee update
+* assignee clearing
+* comments
+* keyword search
+* status filtering
+* combined search + status filter
+* status transitions
+* invalid transitions
+* same-status transitions
+* terminal states
+* terminal field updates
+* terminal comments
+* validation
+* missing ticket
+* malformed ID
+* unknown request fields
+* structured errors
+* persistence
+* persistence after restart
+* UI error handling
+
+Do not invent additional product functionality.
+
+---
+
+## 5. State Machine Test Strategy
+
+This section must be detailed.
+
+Use the exact states:
+
+* OPEN
+* IN_PROGRESS
+* RESOLVED
+* CLOSED
+* CANCELLED
+
+Define coverage for all 25 source/target combinations.
+
+Explicitly identify:
+
+* 5 allowed transitions
+* 20 rejected transitions
+
+The strategy must verify:
+
+### Allowed
+
+* OPEN → IN_PROGRESS
+* OPEN → CANCELLED
+* IN_PROGRESS → RESOLVED
+* IN_PROGRESS → CANCELLED
+* RESOLVED → CLOSED
+
+### Rejected
+
+Every other source/target combination, including:
+
+* same-state transitions
+* transitions out of CLOSED
+* transitions out of CANCELLED
+* RESOLVED → CANCELLED
+* all other unlisted transitions
+
+For rejected transitions, tests must verify:
+
+* HTTP 409
+* `INVALID_STATUS_TRANSITION`
+* persisted status remains unchanged
+* no unintended ticket mutation occurs
+
+Also cover:
+
+* invalid target status → 400
+* missing ticket → 404
+* malformed ID → 400
+
+---
+
+## 6. Validation and Error Test Strategy
+
+Cover the approved validation rules only.
+
+Include:
+
+* missing title
+* title over 200 characters
+* missing description
+* description over 5000 characters
+* invalid priority
+* missing comment body
+* missing/null/invalid target status
+* empty PATCH body
+* unknown PATCH fields
+* unknown create fields
+* invalid query/status input
+* malformed ticket ID
+* missing ticket
+
+Verify the approved error mappings:
+
+* 400 → `VALIDATION_ERROR`
+* 404 → `TICKET_NOT_FOUND`
+* 409 → `INVALID_STATUS_TRANSITION`
+* 409 → `TERMINAL_TICKET_CONFLICT`
+
+Verify the error structure contains:
+
+* code
+* message
+* status
+* path
+
+Do not introduce extra validation such as minimum lengths, whitespace-only rejection, assignee length limits, or comment length limits unless already specified elsewhere.
+
+---
+
+## 7. Search and Filter Test Strategy
+
+Define tests for:
+
+### Keyword search
+
+* case-insensitive matching
+* partial matching
+* title matching
+* description matching
+* no match
+* empty keyword behavior
+
+### Status filtering
+
+* each valid status
+* no matching tickets
+* invalid status value
+
+### Combined filtering
+
+Verify keyword AND status semantics.
+
+Include cases where:
+
+* both conditions match
+* keyword matches but status does not
+* status matches but keyword does not
+* neither matches
+
+Verify empty result sets are successful responses, not errors.
+
+---
+
+## 8. Terminal-State Test Strategy
+
+Explicitly test CLOSED and CANCELLED.
+
+For both terminal states verify:
+
+* status cannot change
+* title cannot be updated
+* description cannot be updated
+* priority cannot be updated
+* assignee cannot be updated
+* comments cannot be added
+
+Verify the correct 409 behavior and that rejected operations do not modify persisted data.
+
+Do not add deletion/reopening tests because those capabilities are explicitly out of scope.
+
+---
+
+## 9. Persistence Test Strategy
+
+Cover:
+
+* successful ticket creation persists
+* ticket updates persist
+* status transitions persist
+* comments persist
+* search/filter reads persisted data
+* rejected status transitions do not modify persisted status
+* rejected terminal updates/comments do not modify persisted data
+* data remains available after application restart when using the same PostgreSQL database
+
+Clearly distinguish:
+
+* transaction-level persistence tests
+* integration persistence tests
+* restart/durability verification
+
+Do not claim that an H2 test alone proves PostgreSQL restart durability.
+
+---
+
+## 10. H2 vs PostgreSQL Test Strategy
+
+Explain the role of H2:
+
+* H2 is used for automated tests
+* H2 is useful for fast repeatable relational persistence tests
+* H2 does not prove PostgreSQL-specific behavior
+
+Identify behaviors that may require PostgreSQL-backed verification, especially:
+
+* PostgreSQL-specific SQL behavior if introduced
+* database-specific constraints/types
+* restart/durability verification against the actual application database
+
+Do not introduce PostgreSQL-specific features merely for testing.
+
+---
+
+## 11. Test Data Strategy
+
+Define deterministic test-data principles.
+
+Include:
+
+* each test should create or explicitly control the data it needs
+* avoid dependence on pre-existing database state
+* avoid test ordering dependencies
+* use known ticket statuses
+* use representative priorities
+* use deterministic titles/descriptions for search tests
+* create comments through approved mechanisms
+* isolate tests where practical
+* clean up or reset test data according to the test framework strategy
+
+Do not define implementation-specific fixtures yet.
+
+---
+
+## 12. Test Isolation and Repeatability
+
+Explain how tests should remain:
+
+* deterministic
+* independently runnable
+* repeatable
+* isolated from unrelated tests
+* independent of test execution order
+
+Mention that tests should not rely on manually inserted database records unless a test specifically verifies behavior against persisted data.
+
+---
+
+## 13. API Contract Verification
+
+Define verification of:
+
+* HTTP methods
+* endpoint paths
+* request payloads
+* response status codes
+* response representations
+* decimal-string IDs
+* timestamp format
+* assignee null/omitted behavior
+* comments representation
+* query parameters
+* structured errors
+* rejection of unknown fields
+
+Explicitly verify that ordinary PATCH cannot change status and that the dedicated status endpoint accepts only `targetStatus`.
+
+---
+
+## 14. UI Test Strategy
+
+Map the approved UI flows to test coverage.
+
+Include:
+
+* create success/error
+* list/search/filter
+* detail rendering
+* edit success/error
+* status transition success/error
+* comment success/error
+* terminal state behavior
+* stale-state recovery after 409
+* loading states
+* duplicate submission prevention
+* meaningful backend error messages
+
+Do not require UI tests to duplicate every backend state-machine matrix case if backend integration tests already provide authoritative lifecycle coverage. Explain the distinction.
+
+---
+
+## 15. Traceability
+
+Create a traceability table mapping:
+
+* Requirement / Acceptance Criterion
+* Behavior to Verify
+* Test Level
+* Test Strategy Reference
+
+Cover all major acceptance criteria, especially:
+
+* creation
+* listing
+* details
+* editing
+* comments
+* search/filter
+* valid transitions
+* invalid transitions
+* persistence
+* backend validation
+* UI errors
+* state-machine integration verification
+* no secrets
+
+Use the existing IDs from `spec/requirements.md` such as `FR-*`, `BR-*`, `VR-*`, `ER-*`, `PR-*`, `TC-*`, and `AC-*`.
+
+Do not invent requirement IDs.
+
+---
+
+## 16. Coverage Expectations
+
+Define qualitative coverage expectations.
+
+At minimum state that:
+
+* all approved state-machine transitions must be covered
+* all rejected state-machine transitions must be covered
+* all API error categories must be covered
+* all approved validation constraints must have negative tests
+* all acceptance criteria must have corresponding verification
+* critical business rules must have both focused tests and appropriate integration coverage
+
+Do not invent arbitrary numerical code-coverage percentages unless already specified by project rules.
+
+---
+
+## 17. Out-of-Scope Testing
+
+Explicitly exclude testing for product capabilities that are out of scope, including:
+
+* authentication
+* authorization
+* roles
+* notifications
+* attachments
+* audit history
+* pagination
+* sorting
+* ticket deletion
+* comment editing/deletion
+* reopening tickets
+* additional lifecycle states
+* automatic/scheduled transitions
+* SLA functionality
+
+Testing should not create requirements for these features.
+
+---
+
+## 18. Risks and Testing Gaps
+
+Identify important risks, including:
+
+* tests that verify implementation details instead of behavior
+* testing only happy paths
+* incomplete state-machine matrix coverage
+* testing the UI without verifying backend enforcement
+* verifying HTTP 409 without verifying persisted state remains unchanged
+* assuming H2 proves PostgreSQL behavior
+* missing combined search/filter semantics
+* accidentally allowing status changes through ordinary PATCH
+* tests passing because of shared database state
+* insufficient verification of unknown-field rejection
+* stale UI state after rejected transitions
+
+For each risk, describe the corresponding mitigation in the test strategy.
+
+---
+
+## 19. Test Execution Summary
+
+Summarize the intended sequence:
+
+1. Unit tests
+2. Controller/API tests
+3. Repository tests
+4. Integration tests
+5. State-machine integration tests
+6. Frontend/UI tests
+7. PostgreSQL-backed verification where required
+
+Explain that test generation should happen only after this strategy is approved.
+
+---
+
+## 20. Resolved Testing Decisions
+
+Record explicit decisions made by this strategy.
+
+Use IDs such as:
+
+* TS-D-001
+* TS-D-002
+* TS-D-003
+
+Do not create decisions for unresolved implementation details.
+
+---
+
+## 21. Unresolved Questions
+
+Only include genuinely unresolved questions that must be decided before implementation.
+
+Do not invent questions merely to make the section longer.
+
+---
+
+## 22. Consistency Review
+
+End with a short consistency checklist confirming whether the strategy is consistent with:
+
+* `spec/requirements.md`
+* `spec/architecture.md`
+* `spec/data-model.md`
+* `spec/api-contract.md`
+* `spec/state-machine.md`
+* `spec/ui-flow.md`
+
+Do not silently modify those specifications.
+
+---
+
+# Important Constraints
+
+1. Do not write implementation code.
+2. Do not generate actual test classes.
+3. Do not generate test methods.
+4. Do not introduce new requirements.
+5. Do not add new API endpoints.
+6. Do not add new states or transitions.
+7. Do not add authentication/authorization.
+8. Do not introduce extra validation rules.
+9. Do not invent numerical coverage targets.
+10. Do not weaken the requirement for complete state-machine matrix coverage.
+11. Do not treat frontend controls as backend enforcement.
+12. Do not claim H2 proves PostgreSQL-specific behavior.
+13. Do not duplicate implementation details from the architecture or API specification unnecessarily.
+14. Keep the document focused on **test strategy**, not test implementation.
+15. Flag contradictions with existing specifications instead of silently resolving them.
+
+After generating the document, perform a self-review and explicitly identify:
+
+* any contradiction with an approved specification
+* any missing acceptance-criterion coverage
+* any test responsibility assigned to the wrong test level
+* any newly invented requirement
+* any unresolved testing decision
+* any place where the strategy could falsely appear complete while not actually proving the requirement
+
+Do not fix contradictions by changing the other specifications.
+
+
+---
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/.cursor/rules/testing.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/.cursor/rules/java-springboot.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/.cursor/rules/api-standards.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/spec/test-strategy.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/spec/api-contract.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: /home/gunjan/Documents/support-ticket-management/spec/ui-flow.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Write complete test strategy specification",
+      "id": "draft-test-strategy",
+      "status": "in_progress"
+    },
+    {
+      "content": "Audit coverage, traceability, risks, and consistency",
+      "id": "audit-test-strategy",
+      "status": "pending"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Write complete UI flow specification in spec/ui-flow.md",
+      "id": "draft-ui-flow",
+      "status": "completed"
+    },
+    {
+      "content": "Verify UI/API/lifecycle consistency and single-file scope",
+      "id": "verify-ui-flow",
+      "status": "completed"
+    }
+  ],
+  "success": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/spec/test-strategy.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Assessing test strategies**
+
+I'm considering the level of complexity in the "no secrets static repo check." There are UI tests that seem to rely on backend semantics, but the test list mentions a UI test case that doesn’t actually verify this. I’ll need to focus on the state machine test and ensure the references for API are accurate, as I can’t find specific IDs in the architecture document. I'll use regex to check the structure and transitions, which could help clarify some points.
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Write complete test strategy specification",
+      "id": "draft-test-strategy",
+      "status": "completed"
+    },
+    {
+      "content": "Audit coverage, traceability, risks, and consistency",
+      "id": "audit-test-strategy",
+      "status": "in_progress"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Write complete test strategy specification",
+      "id": "draft-test-strategy",
+      "status": "in_progress"
+    },
+    {
+      "content": "Audit coverage, traceability, risks, and consistency",
+      "id": "audit-test-strategy",
+      "status": "pending"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "^## [0-9]+\\."
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "^## [0-9]+\\.",
+  "topFiles": [
+    {
+      "matchCount": 22,
+      "uri": "spec/test-strategy.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 22
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "OPEN → IN_PROGRESS|OPEN → CANCELLED|IN_PROGRESS → RESOLVED|IN_PROGRESS → CANCELLED|RESOLVED → CLOSED|20 rejected|25|INVALID_STATUS_TRANSITION|TERMINAL_TICKET_CONFLICT"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "OPEN → IN_PROGRESS|OPEN → CANCELLED|IN_PROGRESS → RESOLVED|IN_PROGRESS → CANCELLED|RESOLVED → CLOSED|20 rejected|25|INVALID_STATUS_TRANSITION|TERMINAL_TICKET_CONFLICT",
+  "topFiles": [
+    {
+      "matchCount": 33,
+      "uri": "spec/test-strategy.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 33
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "AC-001|AC-002|AC-003|AC-004|AC-005|AC-006|AC-007|AC-008|AC-009|AC-010|AC-011|AC-012|AC-013|AC-014|AC-015|AC-016|AC-017|AC-018|AC-019|AC-020|AC-021|AC-022"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "AC-001|AC-002|AC-003|AC-004|AC-005|AC-006|AC-007|AC-008|AC-009|AC-010|AC-011|AC-012|AC-013|AC-014|AC-015|AC-016|AC-017|AC-018|AC-019|AC-020|AC-021|AC-022",
+  "topFiles": [
+    {
+      "matchCount": 29,
+      "uri": "spec/test-strategy.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 29
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="read_lints"><details>
+<summary>Tool use: **read_lints**</summary>
+
+Parameters:
+
+```json
+{
+  "paths": [
+    "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md"
+  ]
+}
+```
+Result:
+
+```json
+{
+  "linterErrorsByFile": [
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md"
+    }
+  ]
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="task_v2"><details>
+<summary>Tool use: **task_v2**</summary>
+
+Parameters:
+
+```json
+{
+  "description": "Audit test strategy",
+  "model": "gpt-5.6-sol-low",
+  "name": "general-purpose",
+  "prompt": "Read-only audit of /home/gunjan/Documents/support-ticket-management/spec/test-strategy.md against spec/requirements.md, spec/architecture.md, spec/data-model.md, spec/api-contract.md, spec/state-machine.md, spec/ui-flow.md, and .cursor/rules/testing.md. Check for contradictions, invented requirements, missing AC-001 through AC-022 coverage, wrong test-level ownership, incomplete 5x5 lifecycle coverage, incorrect HTTP/error/search/terminal/persistence semantics, and false claims about H2 vs PostgreSQL. Return only concrete findings with exact sections/lines and suggested wording; say no findings if clean. Do not modify files.",
+  "subagentType": "unspecified"
+}
+```
+Additional data:
+
+```json
+{
+  "status": "success",
+  "subagentComposerId": "34795c03-6b37-4b11-b60b-a1ebdeca9b08",
+  "supersededSubagentComposerIds": [
+    "1b822542-df71-45cb-9587-9975c5276cd5"
+  ],
+  "terminationReason": "completed"
+}
+```
+Result:
+
+```json
+{
+  "agentId": "34795c03-6b37-4b11-b60b-a1ebdeca9b08"
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "context": 2,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "PostgreSQL-backed tests|automated or executed|Exact fields|Any status target|VR-001–VR-009|FR-004|FR-005|FR-006|FR-007"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "PostgreSQL-backed tests|automated or executed|Exact fields|Any status target|VR-001–VR-009|FR-004|FR-005|FR-006|FR-007",
+  "topFiles": [
+    {
+      "matchCount": 28,
+      "uri": "spec/test-strategy.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 8
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/spec/test-strategy.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Updating self-review**
+
+I need to update my self-review now, mentioning that there's no "wrong-level." I think there was a potential conflict regarding the section on "PostgreSQL-backed tests or acceptance," but that's been fixed. I'll also look for information on "PostgreSQL-backed test" elsewhere to ensure consistency and thoroughness. It’s important to get this right and ensure clear communication!
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "context": 2,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "PostgreSQL-backed test|automated.*PostgreSQL|PostgreSQL.*automated|VR-001–VR-009|Exact fields|Any status target"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "PostgreSQL-backed test|automated.*PostgreSQL|PostgreSQL.*automated|VR-001–VR-009|Exact fields|Any status target",
+  "topFiles": [
+    {
+      "matchCount": 15,
+      "uri": "spec/test-strategy.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 3
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "AC-001|AC-002|AC-003|AC-004|AC-005|AC-006|AC-007|AC-008|AC-009|AC-010|AC-011|AC-012|AC-013|AC-014|AC-015|AC-016|AC-017|AC-018|AC-019|AC-020|AC-021|AC-022"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md",
+  "pattern": "AC-001|AC-002|AC-003|AC-004|AC-005|AC-006|AC-007|AC-008|AC-009|AC-010|AC-011|AC-012|AC-013|AC-014|AC-015|AC-016|AC-017|AC-018|AC-019|AC-020|AC-021|AC-022",
+  "topFiles": [
+    {
+      "matchCount": 30,
+      "uri": "spec/test-strategy.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 30
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="read_lints"><details>
+<summary>Tool use: **read_lints**</summary>
+
+Parameters:
+
+```json
+{
+  "paths": [
+    "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md"
+  ]
+}
+```
+Result:
+
+```json
+{
+  "linterErrorsByFile": [
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/spec/test-strategy.md"
+    }
+  ]
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Refining test requirements**
+
+I'm looking at potential trace row ER004, which mentions that "contains four approved fields" might imply exactness. I think it could be clearer to change "contains required fields" to avoid confusion about subagent points. The important H2 requirement states, "Automated tests shall use H2." Does this completely exclude automated Postgres? Our strategy is explicitly non-automated. The user asked for "PostgreSQL-backed verification where required." Could a "static repository check" be automated? Probably not, as no database is irrelevant here. I need to clarify the error wording in the patch.
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/spec/test-strategy.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Reviewing completeness criteria**
+
+I need to mark this task as complete. I created a file and performed a self-review, confirming no contradictions, missing acceptance criteria, wrong test levels, or any invented elements. However, I need to be cautious about false completeness risks. There's a desire for verbosity, so I’m aiming for concise communication while ensuring nothing is overlooked. It's a balancing act to keep it thorough without becoming too wordy!
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Write complete test strategy specification",
+      "id": "draft-test-strategy",
+      "status": "completed"
+    },
+    {
+      "content": "Audit coverage, traceability, risks, and consistency",
+      "id": "audit-test-strategy",
+      "status": "completed"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Write complete test strategy specification",
+      "id": "draft-test-strategy",
+      "status": "completed"
+    },
+    {
+      "content": "Audit coverage, traceability, risks, and consistency",
+      "id": "audit-test-strategy",
+      "status": "in_progress"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+Created only `spec/test-strategy.md`.
+
+Self-review:
+- No specification contradictions found.
+- AC-001 through AC-022 are covered.
+- Test-level responsibilities are correctly separated.
+- No requirements were invented.
+- Framework, CI, and environment provisioning remain implementation choices.
+- H2 limitations, PostgreSQL restart verification, persisted-state assertions, and complete 5×5 matrix coverage are explicitly addressed.
+- No code or tests were generated.
+
+---
+
+_**User**_
+
+* Required persistence mappings and relational integrity relevant to the approved data model, where those constraints are actually implemented at the persistence boundary.
+
+Repository tests must not assume that every API validation rule is implemented as a database constraint. Backend validation remains the authoritative enforcement mechanism unless a persistence constraint is explicitly required by the approved specifications.
+
+
+---
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2** • Read file: </summary>
+
+</details></tool-use>
