@@ -5127,6 +5127,1942 @@ _**Agent (gpt-5.6-sol)**_
 
 <tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
 <summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/spec/api-contract.md</summary>
-Status: **loading**
 
 </details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/api-contract.md",
+  "pattern": "200 characters|syntactically invalid|OPEN → IN_PROGRESS|IN_PROGRESS → RESOLVED|RESOLVED → CLOSED|OPEN → CANCELLED|IN_PROGRESS → CANCELLED|cannot accept or change status|case-insensitive|keyword match AND exact status match"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/api-contract.md",
+  "pattern": "200 characters|syntactically invalid|OPEN → IN_PROGRESS|IN_PROGRESS → RESOLVED|RESOLVED → CLOSED|OPEN → CANCELLED|IN_PROGRESS → CANCELLED|cannot accept or change status|case-insensitive|keyword match AND exact status match",
+  "topFiles": [
+    {
+      "matchCount": 15,
+      "uri": "spec/api-contract.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 15
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="read_lints"><details>
+<summary>Tool use: **read_lints**</summary>
+
+Parameters:
+
+```json
+{
+  "paths": [
+    "/home/gunjan/Documents/support-ticket-management/spec/api-contract.md"
+  ]
+}
+```
+Result:
+
+```json
+{
+  "linterErrorsByFile": [
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/spec/api-contract.md"
+    }
+  ]
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+- Replaced the Unicode-specific length interpretation with consistent approved maximum limits.
+- Refined GET query errors without adding `keyword` validation.
+
+---
+
+_**User**_
+
+We have completed and approved these specification artifacts:
+
+* `spec/requirements.md`
+* `spec/architecture.md`
+* `spec/data-model.md`
+* `spec/api-contract.md`
+
+Now create **Step 7: State Machine Specification**.
+
+Create or replace ONLY:
+
+`spec/state-machine.md`
+
+Do NOT modify:
+
+* Java source code
+* frontend code
+* database/migrations
+* tests
+* README
+* other specification files
+* rules, commands, skills, or prompt-history files
+
+## Objective
+
+Define the complete and implementation-independent lifecycle/state-machine contract for a Ticket.
+
+This must be a precise specification, not Java code and not an implementation plan.
+
+The state machine must be derived strictly from the already approved specifications. Do not introduce new states, transitions, lifecycle rules, or product capabilities.
+
+## Authoritative lifecycle
+
+The Ticket has exactly these five states:
+
+* OPEN
+* IN_PROGRESS
+* RESOLVED
+* CLOSED
+* CANCELLED
+
+Initial state:
+
+* Every newly created Ticket starts in `OPEN`.
+
+Exactly these five transitions are allowed:
+
+1. `OPEN → IN_PROGRESS`
+2. `IN_PROGRESS → RESOLVED`
+3. `RESOLVED → CLOSED`
+4. `OPEN → CANCELLED`
+5. `IN_PROGRESS → CANCELLED`
+
+Every other transition must be rejected.
+
+This includes:
+
+* Same-state transitions, for example `OPEN → OPEN`
+* `CLOSED → OPEN`
+* `CLOSED → IN_PROGRESS`
+* `CLOSED → RESOLVED`
+* `CLOSED → CLOSED`
+* `CLOSED → CANCELLED`
+* `CANCELLED → OPEN`
+* `CANCELLED → IN_PROGRESS`
+* `CANCELLED → RESOLVED`
+* `CANCELLED → CLOSED`
+* `CANCELLED → CANCELLED`
+* Any other unlisted transition between the five approved states
+
+## Required content
+
+Structure `spec/state-machine.md` with the following sections.
+
+### 1. Purpose and Authority
+
+Explain that this document defines the Ticket lifecycle state machine.
+
+State that:
+
+* requirements are the highest authority
+* architecture defines the backend enforcement responsibility
+* data model defines the persisted status values
+* API contract defines the dedicated status operation and HTTP behavior
+* this document formalizes the lifecycle rules without introducing implementation details
+
+### 2. States
+
+Define all five states.
+
+For each state, explain only its approved lifecycle meaning.
+
+At minimum establish:
+
+* `OPEN`: initial state and may transition to `IN_PROGRESS` or `CANCELLED`
+* `IN_PROGRESS`: may transition to `RESOLVED` or `CANCELLED`
+* `RESOLVED`: may transition only to `CLOSED`
+* `CLOSED`: terminal state
+* `CANCELLED`: terminal state
+
+Do not invent additional meanings such as SLA behavior, ownership requirements, timestamps, notifications, or reopening rules.
+
+### 3. Initial State
+
+Specify that:
+
+`CREATE → OPEN`
+
+A client cannot choose the initial status.
+
+The initial status must be assigned by the backend.
+
+### 4. Complete Transition Matrix
+
+Create a complete 5 × 5 transition matrix covering every combination of current state and target state.
+
+Clearly distinguish:
+
+* ALLOWED
+* REJECTED
+
+The matrix must include same-state combinations.
+
+Expected allowed cells are exactly:
+
+| Current     | Target      | Result  |
+| ----------- | ----------- | ------- |
+| OPEN        | IN_PROGRESS | ALLOWED |
+| OPEN        | CANCELLED   | ALLOWED |
+| IN_PROGRESS | RESOLVED    | ALLOWED |
+| IN_PROGRESS | CANCELLED   | ALLOWED |
+| RESOLVED    | CLOSED      | ALLOWED |
+
+Every other combination must be REJECTED.
+
+Do not accidentally omit any matrix cell.
+
+### 5. Transition Rules
+
+Define the lifecycle as explicit rules.
+
+Include rules equivalent to:
+
+* SM-001: New Tickets start in OPEN.
+* SM-002: OPEN may transition only to IN_PROGRESS or CANCELLED.
+* SM-003: IN_PROGRESS may transition only to RESOLVED or CANCELLED.
+* SM-004: RESOLVED may transition only to CLOSED.
+* SM-005: CLOSED has no outgoing transitions.
+* SM-006: CANCELLED has no outgoing transitions.
+* SM-007: Same-state transitions are rejected.
+* SM-008: Any transition not explicitly listed as allowed is rejected.
+* SM-009: A rejected transition must not modify persisted Ticket status.
+* SM-010: Status changes are performed only through the dedicated status operation defined by the API contract.
+
+Use IDs consistently and make them traceable.
+
+### 6. Transition Evaluation
+
+Describe the implementation-independent decision process.
+
+The logical evaluation should be:
+
+1. Read the current persisted Ticket status.
+2. Validate that the requested target status is one of the five approved states.
+3. Determine whether the `(currentStatus, targetStatus)` pair is one of the five allowed transitions.
+4. If allowed, change the status.
+5. If rejected, return a lifecycle conflict and leave persisted state unchanged.
+
+Do NOT provide Java code, pseudocode tied to a specific framework, repository code, or database implementation.
+
+Make clear that the client does not provide the authoritative current state.
+
+### 7. Terminal States
+
+Define `CLOSED` and `CANCELLED` as terminal.
+
+For terminal states:
+
+* no status transition is allowed
+* ordinary Ticket field updates are rejected
+* new Comments are rejected
+
+These terminal operation restrictions must be consistent with the approved requirements, architecture, data model, and API contract.
+
+Do not introduce deletion or reopening behavior.
+
+### 8. Separation from Ordinary Ticket Updates
+
+Explicitly state:
+
+* Ordinary `PATCH /api/tickets/{id}` can update only title, description, priority, and assignee.
+* It cannot change status.
+* Status changes happen only through `PATCH /api/tickets/{id}/status`.
+* Frontend controls are advisory and cannot authorize a lifecycle transition.
+* Backend/service-layer validation is authoritative.
+
+### 9. Invalid Transition Examples
+
+Provide representative examples of rejected transitions, including:
+
+* `OPEN → OPEN`
+* `OPEN → RESOLVED`
+* `OPEN → CLOSED`
+* `IN_PROGRESS → OPEN`
+* `IN_PROGRESS → CLOSED`
+* `RESOLVED → OPEN`
+* `RESOLVED → IN_PROGRESS`
+* `RESOLVED → CANCELLED`
+* `CLOSED → OPEN`
+* `CLOSED → CLOSED`
+* `CANCELLED → OPEN`
+* `CANCELLED → CANCELLED`
+
+Make clear these examples are representative and that the complete matrix in Section 4 is authoritative.
+
+### 10. API Error Mapping
+
+Trace the state machine to the approved API behavior:
+
+* Invalid target value / malformed request input → `400 Bad Request`
+* Missing Ticket → `404 Not Found`
+* Valid target status but invalid lifecycle transition → `409 Conflict`
+* Error code → `INVALID_STATUS_TRANSITION`
+* Rejected transition leaves persisted state unchanged
+
+Do not create additional error codes.
+
+### 11. Persistence Invariant
+
+State explicitly:
+
+For every rejected lifecycle transition, the Ticket's persisted status remains exactly equal to its status before the request.
+
+Also state that successful transitions persist the new status.
+
+Do not specify transaction implementation details here; those belong to architecture/implementation.
+
+### 12. Testable Invariants
+
+Define implementation-independent invariants that can later become tests.
+
+Include at minimum:
+
+* Every new Ticket has status OPEN.
+* Only five transitions are allowed.
+* Every other state pair is rejected.
+* Same-state transitions are rejected.
+* CLOSED is terminal.
+* CANCELLED is terminal.
+* Rejected transitions do not change persisted state.
+* Status cannot be changed through ordinary Ticket PATCH.
+* Terminal Tickets reject ordinary field updates.
+* Terminal Tickets reject new Comments.
+* Backend, not frontend, is authoritative.
+
+### 13. Requirement Traceability
+
+Create a traceability table connecting the state-machine rules to:
+
+* Requirements IDs such as `BR-002`, `BR-009`–`BR-021`, `VR-008`, `ER-003`, `PR-005`, `TC-010`, `TC-011`
+* Relevant architecture decisions such as `AD-002`, `AD-003`, `AD-007`
+* Relevant data-model decisions such as `DM-004`, `DM-010`
+* Relevant API contract sections/decisions such as the status endpoint, `API-007`, and the status/error contract
+
+Only reference IDs/sections that actually exist in the approved documents.
+
+### 14. Explicit Non-Goals
+
+State that this state machine does NOT introduce:
+
+* reopening Tickets
+* additional statuses
+* automatic transitions
+* scheduled transitions
+* notifications
+* SLA behavior
+* audit history
+* transition history
+* authorization/roles
+* deletion
+* any other lifecycle capability outside the approved requirements
+
+### 15. Resolved Questions
+
+State that the lifecycle itself is fully specified.
+
+Any future request to add/reopen states, change transitions, or alter terminal behavior requires an approved specification change before implementation.
+
+## Critical consistency checks
+
+Before finishing, verify all of the following:
+
+1. Exactly five states exist.
+2. Exactly five transitions are ALLOWED.
+3. `OPEN → IN_PROGRESS` exists.
+4. `IN_PROGRESS → RESOLVED` exists.
+5. `RESOLVED → CLOSED` exists.
+6. `OPEN → CANCELLED` exists.
+7. `IN_PROGRESS → CANCELLED` exists.
+8. No transition from CLOSED is allowed.
+9. No transition from CANCELLED is allowed.
+10. Same-state transitions are rejected.
+11. No `RESOLVED → CANCELLED` transition is introduced.
+12. No reopening transition is introduced.
+13. Ordinary PATCH cannot modify status.
+14. Terminal field-update/comment restrictions remain consistent.
+15. Invalid transition maps to HTTP 409 / `INVALID_STATUS_TRANSITION`.
+16. Invalid target value maps to HTTP 400.
+17. Missing Ticket maps to HTTP 404.
+18. Rejected transitions leave persisted state unchanged.
+19. No new requirements or product capabilities are invented.
+20. Do not modify any file other than `spec/state-machine.md`.
+
+At the end, provide a concise self-review stating:
+
+* number of states
+* number of allowed transitions
+* confirmation that every other matrix combination is rejected
+* confirmation that terminal states are CLOSED and CANCELLED
+* confirmation that no other files were modified
+
+Do not begin implementation.
+
+Do not create Java classes.
+
+Do not create tests yet.
+
+Do not create database migrations.
+
+Do not create frontend code.
+
+
+---
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Write complete Ticket lifecycle specification",
+      "id": "draft-state-machine",
+      "status": "in_progress"
+    },
+    {
+      "content": "Verify 5x5 matrix, traceability, and file scope",
+      "id": "verify-state-machine",
+      "status": "pending"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Write complete REST API contract in spec/api-contract.md",
+      "id": "draft-api-contract",
+      "status": "completed"
+    },
+    {
+      "content": "Verify endpoints, rules, traceability, and single-file scope",
+      "id": "review-api-contract",
+      "status": "completed"
+    }
+  ],
+  "success": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/spec/state-machine.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Write complete Ticket lifecycle specification",
+      "id": "draft-state-machine",
+      "status": "completed"
+    },
+    {
+      "content": "Verify 5x5 matrix, traceability, and file scope",
+      "id": "verify-state-machine",
+      "status": "in_progress"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Write complete Ticket lifecycle specification",
+      "id": "draft-state-machine",
+      "status": "in_progress"
+    },
+    {
+      "content": "Verify 5x5 matrix, traceability, and file scope",
+      "id": "verify-state-machine",
+      "status": "pending"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/state-machine.md",
+  "pattern": "^\\| `(OPEN|IN_PROGRESS|RESOLVED|CLOSED|CANCELLED)` \\|"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/state-machine.md",
+  "pattern": "^\\| `(OPEN|IN_PROGRESS|RESOLVED|CLOSED|CANCELLED)` \\|",
+  "topFiles": [
+    {
+      "matchCount": 15,
+      "uri": "spec/state-machine.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 15
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/state-machine.md",
+  "pattern": "OPEN → IN_PROGRESS|IN_PROGRESS → RESOLVED|RESOLVED → CLOSED|OPEN → CANCELLED|IN_PROGRESS → CANCELLED|RESOLVED → CANCELLED|INVALID_STATUS_TRANSITION|400 Bad Request|404 Not Found|409 Conflict"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/state-machine.md",
+  "pattern": "OPEN → IN_PROGRESS|IN_PROGRESS → RESOLVED|RESOLVED → CLOSED|OPEN → CANCELLED|IN_PROGRESS → CANCELLED|RESOLVED → CANCELLED|INVALID_STATUS_TRANSITION|400 Bad Request|404 Not Found|409 Conflict",
+  "topFiles": [
+    {
+      "matchCount": 18,
+      "uri": "spec/state-machine.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 18
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "count",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/state-machine.md",
+  "pattern": "SM-001|SM-002|SM-003|SM-004|SM-005|SM-006|SM-007|SM-008|SM-009|SM-010"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "count",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/state-machine.md",
+  "pattern": "SM-001|SM-002|SM-003|SM-004|SM-005|SM-006|SM-007|SM-008|SM-009|SM-010",
+  "topFiles": [
+    {
+      "matchCount": 22,
+      "uri": "spec/state-machine.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 22
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="read_lints"><details>
+<summary>Tool use: **read_lints**</summary>
+
+Parameters:
+
+```json
+{
+  "paths": [
+    "/home/gunjan/Documents/support-ticket-management/spec/state-machine.md"
+  ]
+}
+```
+Result:
+
+```json
+{
+  "linterErrorsByFile": [
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/spec/state-machine.md"
+    }
+  ]
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Write complete Ticket lifecycle specification",
+      "id": "draft-state-machine",
+      "status": "completed"
+    },
+    {
+      "content": "Verify 5x5 matrix, traceability, and file scope",
+      "id": "verify-state-machine",
+      "status": "completed"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Write complete Ticket lifecycle specification",
+      "id": "draft-state-machine",
+      "status": "completed"
+    },
+    {
+      "content": "Verify 5x5 matrix, traceability, and file scope",
+      "id": "verify-state-machine",
+      "status": "in_progress"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+Created only `spec/state-machine.md`.
+
+Self-review:
+- States: 5
+- Allowed transitions: 5
+- All other 20 matrix combinations are rejected.
+- Terminal states: `CLOSED` and `CANCELLED`
+- No other files were modified.
+- No implementation code or tests were created.
+
+---
+
+_**User**_
+
+We have completed and approved these specification artifacts:
+
+* `spec/requirements.md`
+* `spec/architecture.md`
+* `spec/data-model.md`
+* `spec/api-contract.md`
+* `spec/state-machine.md`
+
+Now create **Step 8: UI Flow Specification**.
+
+Create or replace ONLY:
+
+`spec/ui-flow.md`
+
+Do NOT modify:
+
+* Java source code
+* frontend source code
+* database/migrations
+* tests
+* README
+* other specification files
+* rules
+* commands
+* skills
+* prompt-history files
+
+Do NOT implement the frontend.
+
+This document must define the approved user-facing flows and UI behavior only.
+
+---
+
+# Objective
+
+Define the complete UI flow for the Support Ticket Management System based strictly on the approved requirements, API contract, architecture, data model, and state machine.
+
+The UI specification must describe:
+
+* screens/views
+* user actions
+* displayed information
+* form fields
+* search/filter behavior
+* status actions
+* comments
+* loading states
+* empty states
+* validation/error behavior
+* API interaction expectations
+* terminal-state behavior
+
+Do not introduce product capabilities that are outside the approved scope.
+
+The backend remains authoritative for validation and lifecycle decisions.
+
+Frontend controls may improve usability, but they must never be treated as authorization or as the source of truth.
+
+---
+
+## 1. Purpose and Authority
+
+State that this document defines the approved UI behavior and user flows.
+
+Authority hierarchy:
+
+1. `spec/requirements.md`
+2. `spec/architecture.md`
+3. `spec/data-model.md`
+4. `spec/api-contract.md`
+5. `spec/state-machine.md`
+6. This UI specification
+
+Explain that this document resolves UI-specific details that were deferred by the earlier specifications, without changing backend business rules.
+
+State explicitly:
+
+* UI must use the REST API.
+* UI does not access the database directly.
+* Backend validation is authoritative.
+* UI may hide/disable actions based on known status for usability.
+* Backend may still reject a request because the persisted state may have changed.
+
+---
+
+## 2. UI Scope
+
+Define the minimum UI capabilities required:
+
+1. List Tickets.
+2. Search Tickets by keyword.
+3. Filter Tickets by status.
+4. Combine search and status filter.
+5. Create a Ticket.
+6. View Ticket details.
+7. Update title.
+8. Update description.
+9. Update priority.
+10. Update assignee.
+11. Change Ticket status using the approved lifecycle.
+12. Add Comments.
+13. Display meaningful errors.
+14. Display loading and empty states where appropriate.
+
+Do not add:
+
+* authentication
+* user management
+* roles
+* dashboards
+* notifications
+* attachments
+* ticket deletion
+* comment editing/deletion
+* pagination
+* sorting
+* audit history
+* transition history
+* advanced search
+* analytics
+* unrelated navigation
+
+---
+
+## 3. UI Views / Screens
+
+Define these views:
+
+### 3.1 Ticket List View
+
+The Ticket List View must support:
+
+* displaying Ticket summaries
+* keyword search
+* status filtering
+* combined search + status filtering
+* navigating to Ticket details
+* navigating to Create Ticket
+
+Ticket summary displays:
+
+* id
+* title
+* priority
+* assignee
+* status
+
+Do NOT display description or Comments in the list.
+
+Explain that the list uses:
+
+`GET /api/tickets`
+
+with optional:
+
+* `keyword`
+* `status`
+
+The UI must not implement search/filter logic independently if the backend API is available. The backend remains authoritative.
+
+---
+
+### 3.2 Create Ticket View
+
+Define a Create Ticket form containing:
+
+* title — required
+* description — required
+* priority — required
+* assignee — optional
+
+Do not expose:
+
+* id
+* status
+* comments
+* timestamp
+
+The UI may provide client-side validation for obvious input problems, but backend validation remains authoritative.
+
+On successful creation:
+
+* backend returns `201 Created`
+* newly created Ticket has status `OPEN`
+* UI should show the created Ticket or navigate to its detail view
+* do not allow the user to select the initial status
+
+The UI must call:
+
+`POST /api/tickets`
+
+---
+
+### 3.3 Ticket Detail View
+
+Define that Ticket details display:
+
+* id
+* title
+* description
+* priority
+* assignee
+* status
+* comments
+
+Comments display:
+
+* body
+* timestamp
+
+Do not display:
+
+* author
+* user information
+* Ticket timestamps
+
+Comments are returned by:
+
+`GET /api/tickets/{id}`
+
+The UI must treat the `comments` array as potentially empty.
+
+Do not assume or display a chronological ordering guarantee because the API contract does not define one.
+
+---
+
+### 3.4 Edit Ticket Flow
+
+Define editing of:
+
+* title
+* description
+* priority
+* assignee
+
+Use:
+
+`PATCH /api/tickets/{id}`
+
+The UI must never send:
+
+* status
+* id
+* comments
+* timestamps
+
+PATCH behavior:
+
+* omitted fields remain unchanged
+* `assignee: null` clears the assignee
+* empty PATCH is invalid
+* terminal Tickets reject ordinary updates
+
+The UI may disable/hide edit controls for `CLOSED` and `CANCELLED`, but this is only a usability optimization. The backend remains authoritative.
+
+---
+
+### 3.5 Status Transition Flow
+
+Define a dedicated status transition interaction.
+
+Use:
+
+`PATCH /api/tickets/{id}/status`
+
+The UI sends only:
+
+```json
+{
+  "targetStatus": "..."
+}
+```
+
+The UI must NOT send the current status as an authoritative value.
+
+The UI may derive available actions from the current displayed status:
+
+For `OPEN`:
+
+* Move to `IN_PROGRESS`
+* Cancel
+
+For `IN_PROGRESS`:
+
+* Resolve
+* Cancel
+
+For `RESOLVED`:
+
+* Close
+
+For `CLOSED`:
+
+* No status actions
+
+For `CANCELLED`:
+
+* No status actions
+
+Make clear that these UI actions are advisory.
+
+The backend determines whether the transition is actually allowed using persisted state.
+
+If the backend returns:
+
+`409 INVALID_STATUS_TRANSITION`
+
+the UI must display a meaningful lifecycle error and refresh/reload the Ticket state so the user sees the current backend state.
+
+Do not invent additional transitions.
+
+---
+
+### 3.6 Comment Flow
+
+Define a Comment input on the Ticket Detail View.
+
+The user can enter:
+
+* body
+
+The UI must not ask for:
+
+* id
+* ticketId
+* timestamp
+* author
+* user
+
+Use:
+
+`POST /api/tickets/{id}/comments`
+
+On success:
+
+* backend returns `201 Created`
+* display the new Comment
+* refresh/update the displayed Ticket comments
+
+For `CLOSED` and `CANCELLED` Tickets:
+
+* Comment input/action may be disabled or hidden for usability.
+* Backend remains authoritative.
+* If the backend returns `409 TERMINAL_TICKET_CONFLICT`, display a meaningful error.
+
+---
+
+## 4. Navigation Flow
+
+Define the minimum navigation flow.
+
+Expected flow:
+
+`Ticket List → Create Ticket`
+
+`Ticket List → Ticket Details`
+
+`Ticket Details → Edit Ticket`
+
+`Ticket Details → Status Transition`
+
+`Ticket Details → Add Comment`
+
+After successful create:
+
+`Create Ticket → Ticket Details` or equivalent successful confirmation.
+
+After successful update/status/comment:
+
+* remain on the relevant Ticket context
+* display refreshed/current data
+
+Do not introduce additional application sections.
+
+---
+
+## 5. Search and Filter Flow
+
+Define:
+
+### Keyword search
+
+User enters a keyword.
+
+Backend semantics:
+
+* case-insensitive
+* partial match
+* title OR description
+
+The UI must not reinterpret these semantics.
+
+### Status filter
+
+Available filter values:
+
+* All / no status filter
+* OPEN
+* IN_PROGRESS
+* RESOLVED
+* CLOSED
+* CANCELLED
+
+When no status is selected, omit the `status` query parameter.
+
+### Combined search + filter
+
+When both are provided:
+
+`keyword match AND exact status match`
+
+Use:
+
+`GET /api/tickets?keyword=...&status=...`
+
+Do not introduce:
+
+* fuzzy search
+* relevance ranking
+* sorting
+* pagination
+* advanced search syntax
+
+### Empty result
+
+If the API returns `[]`, show a meaningful empty state such as:
+
+"No tickets found."
+
+Do not treat no matches as an error.
+
+---
+
+## 6. Form Validation Behavior
+
+Define UI-level validation only for rules already approved by the backend contract.
+
+Create/Edit:
+
+* title required
+* title maximum 200 characters
+* description required
+* description maximum 5,000 characters
+* priority required and limited to approved values
+* assignee optional
+
+Comment:
+
+* body required
+* no additional maximum length
+* do not invent whitespace-only validation
+
+Status:
+
+* target must be one of the five approved statuses
+* actual transition validity is determined by backend
+
+Important:
+
+Client-side validation is for usability only.
+
+Every request must still be validated by the backend.
+
+Do not add new frontend-only business rules.
+
+---
+
+## 7. Error Handling
+
+Define meaningful UI behavior for all approved API errors.
+
+### 400 — VALIDATION_ERROR
+
+Display a user-friendly validation message.
+
+Do not expose stack traces or internal implementation details.
+
+Where possible, associate validation errors with the relevant form/input.
+
+### 404 — TICKET_NOT_FOUND
+
+Display a meaningful message such as:
+
+"Ticket not found."
+
+For a detail page, the UI may return the user to the Ticket List.
+
+### 409 — INVALID_STATUS_TRANSITION
+
+Display a lifecycle-specific message such as:
+
+"This status change is no longer allowed. The ticket may have changed."
+
+Then refresh/reload the Ticket to obtain current backend state.
+
+### 409 — TERMINAL_TICKET_CONFLICT
+
+Display a meaningful message indicating that the Ticket is already closed or cancelled and the requested operation is not allowed.
+
+The UI must not attempt to bypass the error.
+
+### Network/server/unexpected errors
+
+Define a generic user-friendly error state without exposing internal stack traces or backend implementation details.
+
+Do not invent new API error codes.
+
+---
+
+## 8. Loading States
+
+Define loading behavior for:
+
+* Ticket list loading
+* Ticket detail loading
+* Create submission
+* Update submission
+* Status transition submission
+* Comment submission
+
+During a mutating request, prevent accidental duplicate submissions where appropriate.
+
+Do not define a specific frontend framework or component implementation.
+
+---
+
+## 9. Empty and Initial States
+
+Define:
+
+### Empty Ticket List
+
+When there are no Tickets:
+
+Display an empty state.
+
+The UI should still provide the ability to create a Ticket.
+
+### No Search Results
+
+When a search/filter returns no Tickets:
+
+Display a meaningful no-results state.
+
+This is not an API error.
+
+### Ticket with No Comments
+
+When `comments` is an empty array:
+
+Display an appropriate empty-comments state.
+
+The Comment input remains available unless the Ticket is terminal.
+
+---
+
+## 10. Terminal Ticket UI Behavior
+
+For `CLOSED` or `CANCELLED` Tickets:
+
+Status actions:
+
+* no status transition controls
+
+Field editing:
+
+* disable or hide edit controls
+
+Comments:
+
+* disable or hide comment submission
+
+However, explicitly state:
+
+**These are UI-level usability behaviors only. The backend remains authoritative.**
+
+The UI must handle the case where the backend rejects an operation even if the UI previously showed it as available.
+
+---
+
+## 11. Status Action Mapping
+
+Create a clear UI mapping table:
+
+| Current Status | Available UI Action | API Target  |
+| -------------- | ------------------- | ----------- |
+| OPEN           | Start/In Progress   | IN_PROGRESS |
+| OPEN           | Cancel              | CANCELLED   |
+| IN_PROGRESS    | Resolve             | RESOLVED    |
+| IN_PROGRESS    | Cancel              | CANCELLED   |
+| RESOLVED       | Close               | CLOSED      |
+| CLOSED         | None                | —           |
+| CANCELLED      | None                | —           |
+
+Use only these actions.
+
+Do not introduce "Reopen", "Reassign", "Archive", "Restore", or similar lifecycle actions.
+
+---
+
+## 12. API Interaction Summary
+
+Create a table mapping UI actions to APIs:
+
+| UI Action            | API                                       |
+| -------------------- | ----------------------------------------- |
+| Load ticket list     | `GET /api/tickets`                        |
+| Search/filter        | `GET /api/tickets?keyword=...&status=...` |
+| Create ticket        | `POST /api/tickets`                       |
+| Load ticket details  | `GET /api/tickets/{id}`                   |
+| Update ticket fields | `PATCH /api/tickets/{id}`                 |
+| Change status        | `PATCH /api/tickets/{id}/status`          |
+| Add comment          | `POST /api/tickets/{id}/comments`         |
+
+Explicitly state that no UI operation accesses PostgreSQL/H2 directly.
+
+---
+
+## 13. UI State Consistency
+
+Define how the UI handles stale state.
+
+Important scenario:
+
+1. UI displays Ticket as `OPEN`.
+2. Another request/process changes its backend status.
+3. User attempts `OPEN → IN_PROGRESS`.
+4. Backend evaluates the actual persisted state.
+5. Backend may reject the request with `409`.
+6. UI displays the error.
+7. UI refreshes the Ticket from backend.
+
+The UI must never assume that its displayed state is authoritative.
+
+This is an important demonstration of the backend-authoritative architecture.
+
+---
+
+## 14. Testable UI Behaviors
+
+Define observable behaviors that can later become frontend/API integration tests.
+
+Include at minimum:
+
+* Ticket list displays required summary fields.
+* Create form requires title, description, and priority.
+* Created Ticket appears with status OPEN.
+* Search matches title or description case-insensitively and partially.
+* Status filtering uses exact status.
+* Search + status filtering uses AND semantics.
+* Ticket details display comments.
+* Empty comments are handled.
+* Edit updates only approved Ticket fields.
+* Ordinary edit cannot change status.
+* Status actions expose only approved lifecycle actions.
+* Invalid lifecycle transition produces meaningful UI error.
+* Terminal Tickets do not offer lifecycle/edit/comment actions.
+* Backend 409 errors are handled correctly.
+* Backend 404 is handled correctly.
+* Backend 400 validation errors are displayed meaningfully.
+* UI refreshes after stale-state transition conflict.
+* No direct database access occurs from UI.
+* No unsupported product capabilities are exposed.
+
+---
+
+## 15. Accessibility and Usability Baseline
+
+Define only a reasonable baseline, without introducing a large accessibility specification.
+
+At minimum:
+
+* Form fields have visible labels.
+* Buttons/actions have clear names.
+* Error messages are visible and associated with the relevant operation.
+* Loading states are understandable.
+* Disabled actions should communicate why they are unavailable where practical.
+
+Do not prescribe a specific CSS framework or frontend library.
+
+---
+
+## 16. Explicit Non-Goals
+
+The UI does not provide:
+
+* authentication
+* authorization
+* users/roles
+* dashboards
+* analytics
+* notifications
+* attachments
+* ticket deletion
+* comment editing/deletion
+* pagination
+* sorting
+* audit history
+* transition history
+* advanced/fuzzy search
+* external search
+* lifecycle actions beyond the approved five transitions
+
+---
+
+## 17. Requirement Traceability
+
+Create a traceability table connecting UI flows to the approved:
+
+* FR-001 through FR-013
+* BR-002 through BR-021 where relevant
+* VR-001 through VR-009
+* ER-001 through ER-006
+* AC-001 through AC-022 where relevant
+* relevant architecture decisions
+* relevant API contract sections/decisions
+* relevant state-machine rules/invariants
+
+Only reference IDs and sections that actually exist.
+
+Do not invent requirement IDs.
+
+---
+
+## 18. Resolved UI Decisions
+
+Clearly record UI decisions made in this specification, such as:
+
+* minimum set of UI views
+* list vs detail representation
+* status action labels/mapping
+* terminal-state control behavior
+* search/filter interaction
+* empty states
+* error presentation
+* stale-state refresh behavior
+
+Mark these as UI-flow decisions rather than changes to backend requirements.
+
+---
+
+## 19. Remaining Questions
+
+State whether any UI decision required human approval.
+
+If the approved scope is sufficient, state:
+
+"No unresolved UI questions remain for the approved scope."
+
+If Cursor identifies an actual conflict between the approved specifications, STOP and report the conflict instead of inventing a solution.
+
+---
+
+## 20. Self-Review
+
+Before finishing, verify:
+
+1. No frontend code was created.
+2. No backend code was created.
+3. No other files were modified.
+4. Every approved UI capability is covered.
+5. Every backend endpoint used by the UI exists in `spec/api-contract.md`.
+6. Search semantics are OR between title/description.
+7. Combined search/filter semantics are AND.
+8. Exactly five lifecycle transitions are represented.
+9. No reopening action exists.
+10. CLOSED and CANCELLED have no outgoing status action.
+11. Ordinary edit cannot modify status.
+12. Terminal Tickets reject field updates and Comments.
+13. Backend remains authoritative.
+14. Invalid lifecycle transition maps to `409 INVALID_STATUS_TRANSITION`.
+15. Terminal operation conflict maps to `409 TERMINAL_TICKET_CONFLICT`.
+16. Invalid input maps to `400 VALIDATION_ERROR`.
+17. Missing Ticket maps to `404 TICKET_NOT_FOUND`.
+18. UI handles empty results without treating them as errors.
+19. UI handles stale lifecycle state by refreshing from backend after a transition conflict.
+20. No unsupported product capability was introduced.
+
+At the end, report:
+
+* number of UI views/flows defined
+* number of API interactions defined
+* confirmation that lifecycle actions exactly match the state-machine specification
+* confirmation that backend remains authoritative
+* confirmation that no implementation code was created
+* confirmation that no other files were modified
+
+Do not begin frontend implementation.
+Do not create React components.
+Do not create Java classes.
+Do not create tests.
+Do not create database migrations.
+
+
+---
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Planning file structure and UI flows**
+
+I need to create a file that's approximately 700 words, which needs exact counts for views and flows in the final version. I think it could include three primary views and three embedded flows, so maybe I say 3 views (list, create, detail) and 3 flows (edit, status, comment), totaling 6. There might also be some API interactions with a possible validation title issue. I’ll also need to decide on how to handle the edit interactions smoothly.
+**Deciding on data update methods**
+
+I'm considering whether to append results or reload details after an action. For consistency, I might update the local view with the returned response, but since the order isn't specified, appending could imply a chronological order. To stay true to the backend, I'll choose to reload the details after a success. It’s safe to update the details with the response while leaving comments unchanged. As for search interactions, I think I should prefer a submit action to avoid any unpredictable behavior.
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Write complete UI flow specification in spec/ui-flow.md",
+      "id": "draft-ui-flow",
+      "status": "in_progress"
+    },
+    {
+      "content": "Verify UI/API/lifecycle consistency and single-file scope",
+      "id": "verify-ui-flow",
+      "status": "pending"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Write complete Ticket lifecycle specification",
+      "id": "draft-state-machine",
+      "status": "completed"
+    },
+    {
+      "content": "Verify 5x5 matrix, traceability, and file scope",
+      "id": "verify-state-machine",
+      "status": "completed"
+    }
+  ],
+  "success": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/spec/ui-flow.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Write complete UI flow specification in spec/ui-flow.md",
+      "id": "draft-ui-flow",
+      "status": "completed"
+    },
+    {
+      "content": "Verify UI/API/lifecycle consistency and single-file scope",
+      "id": "verify-ui-flow",
+      "status": "in_progress"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Write complete UI flow specification in spec/ui-flow.md",
+      "id": "draft-ui-flow",
+      "status": "in_progress"
+    },
+    {
+      "content": "Verify UI/API/lifecycle consistency and single-file scope",
+      "id": "verify-ui-flow",
+      "status": "pending"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2** • Edit file: /home/gunjan/Documents/support-ticket-management/spec/ui-flow.md</summary>
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "FR-014|UI-00[1-9]|OPEN.*IN_PROGRESS|OPEN.*CANCELLED|IN_PROGRESS.*RESOLVED|IN_PROGRESS.*CANCELLED|RESOLVED.*CLOSED|Reopen"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "FR-014|UI-00[1-9]|OPEN.*IN_PROGRESS|OPEN.*CANCELLED|IN_PROGRESS.*RESOLVED|IN_PROGRESS.*CANCELLED|RESOLVED.*CLOSED|Reopen",
+  "topFiles": [
+    {
+      "matchCount": 11,
+      "uri": "spec/ui-flow.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 11
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "GET /api/tickets|POST /api/tickets|PATCH /api/tickets/\\{id\\}|PATCH /api/tickets/\\{id\\}/status|POST /api/tickets/\\{id\\}/comments|INVALID_STATUS_TRANSITION|TERMINAL_TICKET_CONFLICT|VALIDATION_ERROR|TICKET_NOT_FOUND"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "GET /api/tickets|POST /api/tickets|PATCH /api/tickets/\\{id\\}|PATCH /api/tickets/\\{id\\}/status|POST /api/tickets/\\{id\\}/comments|INVALID_STATUS_TRANSITION|TERMINAL_TICKET_CONFLICT|VALIDATION_ERROR|TICKET_NOT_FOUND",
+  "topFiles": [
+    {
+      "matchCount": 36,
+      "uri": "spec/ui-flow.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 36
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "case-insensitive|title \\*\\*or\\*\\* description|keyword match AND exact status match|backend remains authoritative|Backend service-layer"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md",
+  "pattern": "case-insensitive|title \\*\\*or\\*\\* description|keyword match AND exact status match|backend remains authoritative|Backend service-layer",
+  "topFiles": [
+    {
+      "matchCount": 5,
+      "uri": "spec/ui-flow.md"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 5
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="read_lints"><details>
+<summary>Tool use: **read_lints**</summary>
+
+Parameters:
+
+```json
+{
+  "paths": [
+    "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md"
+  ]
+}
+```
+Result:
+
+```json
+{
+  "linterErrorsByFile": [
+    {
+      "relativeWorkspacePath": "/home/gunjan/Documents/support-ticket-management/spec/ui-flow.md"
+    }
+  ]
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+<think><details><summary>Thought Process</summary>
+**Clarifying lifecycle actions**
+
+I need to be careful with the term “Reassign,” as the user explicitly asked not to introduce that lifecycle action and it can imply an assignee update. I’ll double-check all requirement IDs; they should exist, including the architecture section and API decisions like API-008. I want to confirm that state INV is accurate. I also need to count views and flows, which should total 3+3, and note that there are 7 API interactions. Finally, I’ll mark requirements as complete.
+</details></think>
+
+_**Agent (gpt-5.6-sol)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "Write complete UI flow specification in spec/ui-flow.md",
+      "id": "draft-ui-flow",
+      "status": "completed"
+    },
+    {
+      "content": "Verify UI/API/lifecycle consistency and single-file scope",
+      "id": "verify-ui-flow",
+      "status": "completed"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "Write complete UI flow specification in spec/ui-flow.md",
+      "id": "draft-ui-flow",
+      "status": "completed"
+    },
+    {
+      "content": "Verify UI/API/lifecycle consistency and single-file scope",
+      "id": "verify-ui-flow",
+      "status": "in_progress"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+</details></tool-use>
+
+_**Agent (gpt-5.6-sol)**_
+
+Created only `spec/ui-flow.md`.
+
+- 3 primary views and 3 detail action flows defined.
+- 7 API interaction types documented.
+- Lifecycle actions exactly match the five approved transitions.
+- Backend remains authoritative.
+- No implementation code or other files were modified.
+
+---
+
+_**User**_
+
+Review the existing `spec/ui-flow.md` against the frozen files:
+
+* `spec/requirements.md`
+* `spec/architecture.md`
+* `spec/data-model.md`
+* `spec/api-contract.md`
+* `spec/state-machine.md`
+
+Do NOT redesign the UI flow.
+
+Do NOT change any approved UI behavior.
+
+Do NOT modify any file other than:
+
+`spec/ui-flow.md`
+
+Perform a strict traceability and consistency audit.
+
+### 1. State-machine references
+
+Verify every `SM-*` and `INV-*` reference in `spec/ui-flow.md` against the exact IDs and meanings in `spec/state-machine.md`.
+
+Correct any incorrect, ambiguous, or mismatched references.
+
+Do not invent new state-machine IDs.
+
+If a UI behavior does not need a specific state-machine invariant, remove the unnecessary reference rather than forcing a mapping.
+
+### 2. API references
+
+Verify every API section reference in `spec/ui-flow.md` against the exact section numbering and content in `spec/api-contract.md`.
+
+Verify every `API-*` decision reference against the exact decision IDs in that file.
+
+Correct only inaccurate references.
+
+Do not modify the API contract.
+
+### 3. Architecture references
+
+Verify every architecture section reference and every `AD-*` reference against the exact content of `spec/architecture.md`.
+
+Correct only inaccurate references.
+
+Do not modify the architecture specification.
+
+### 4. Requirements references
+
+Verify every `FR-*`, `BR-*`, `VR-*`, `ER-*`, `AC-*`, and `TC-*` reference against the exact IDs in `spec/requirements.md`.
+
+Do not invent IDs.
+
+Do not change the requirements.
+
+### 5. Preserve the existing UI design
+
+The following approved behavior must remain unchanged:
+
+* Three primary views: Ticket List, Create Ticket, Ticket Detail.
+* Backend-driven search/filter.
+* Case-insensitive partial keyword matching over title OR description.
+* Combined keyword + status filtering uses AND semantics.
+* Ordinary PATCH cannot modify status.
+* Dedicated status endpoint.
+* Exactly five approved lifecycle transitions.
+* No reopening.
+* CLOSED and CANCELLED are terminal.
+* Terminal Tickets do not expose edit/status/comment actions.
+* Backend remains authoritative.
+* Stale status conflicts result in refresh.
+* Empty collections are not errors.
+* No unsupported product capabilities are introduced.
+* No direct database access from the UI.
+
+### 6. Final consistency check
+
+After correcting references, verify:
+
+* No contradiction exists with the frozen specifications.
+* No new business rule has been introduced.
+* No new product capability has been introduced.
+* No implementation detail has been unnecessarily added.
+* `spec/ui-flow.md` remains a UI specification, not an implementation specification.
+
+At the end, report:
+
+1. Which traceability references were corrected.
+2. Whether any functional UI behavior was changed.
+3. Whether any cross-specification contradiction remains.
+4. Confirmation that only `spec/ui-flow.md` was modified.
+
+Do not create frontend code.
+Do not create tests.
+Do not modify any other specification.
+Do not proceed to implementation.
